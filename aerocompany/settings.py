@@ -36,6 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'order',
+    'cities_light',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -58,8 +60,8 @@ WSGI_APPLICATION = 'aerocompany.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'aerocompany_db',
-        'USER': 'user',
+        'NAME': 'avia',
+        'USER': 'avia',
         'PASSWORD': '12345',
         'HOST': 'localhost',
         'PORT': '3306',
