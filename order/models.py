@@ -34,7 +34,3 @@ class Aircraft(models.Model):
     seat_count = models.CharField(max_length=3)
     def __unicode__(self):
         return '{} {}'.format(self.company, self.model)
-
-
-
-
