@@ -1,5 +1,5 @@
 """
-Django settings for aerocompany project.
+Django settings for airline project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.6/topics/settings/
@@ -38,6 +38,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'order',
     'cities_light',
+    'aircraft',
+    'airport',
+    'flight',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -49,9 +52,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'aerocompany.urls'
+ROOT_URLCONF = 'airline.urls'
 
-WSGI_APPLICATION = 'aerocompany.wsgi.application'
+WSGI_APPLICATION = 'airline.wsgi.application'
 
 
 # Database
