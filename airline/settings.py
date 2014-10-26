@@ -60,16 +60,29 @@ WSGI_APPLICATION = 'airline.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
+# for Postgres
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'avia',
         'USER': 'avia',
         'PASSWORD': '12345',
         'HOST': 'localhost',
-        'PORT': '3306',
+        'PORT': '',
     }
 }
+
+# for MySql
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'avia',
+#         'USER': 'avia',
+#         'PASSWORD': '12345',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
