@@ -20,3 +20,5 @@ class Flight(models.Model):
     departure_time = models.TimeField(verbose_name='Время вылета', default=timezone.datetime.now().time())
     arrival_time = models.TimeField(verbose_name='Время прилёта', default=timezone.datetime.now().time())
     class_of_service = models.CharField(choices=CLASS_OF_SERVICE, max_length=1, default=ECONOMY_CLASS)
+    def __unicode__(self):
+        return '{} {} {} {} {} {}'.format(self.flight_number, self.departure_city, self.arrival_city, self.departure_time, self.arrival_time, self.class_of_service)

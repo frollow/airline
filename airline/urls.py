@@ -12,5 +12,5 @@ urlpatterns = patterns('',
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', 'airline.views.index'),
-    url(r'^$', flight.views.ListFlightView.as_view(), name='flights',),
+    url(r'^flights/', flight.views.ListFlightView.as_view(), name='flights',),
 )
