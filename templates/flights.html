@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h1>Fligths</h1>
+
+<ul>
+  {% for flight in object_list %}
+    <li class="flight">{{ flight }}</li>
+  {% endfor %}
+</ul>
+</body>
+</html>
