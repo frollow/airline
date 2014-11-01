@@ -13,7 +13,7 @@
         pip install -r requirements.txt
 
 4. Создать БД с именем **avia** через уже установленный *pgAdmin III*
-5. Создать пользователя **avia**, пароль **12345** в командной строке
+5. Создать пользователя **avia**, пароль **12345** в  командной строке
 
         psql -U postgres -c "CREATE ROLE avia password '12345' LOGIN NOSUPERUSER INHERIT CREATEDB CREATEROLE;" avia
 6. Запустить *migrate* для создания необходимых таблиц в БД
