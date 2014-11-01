@@ -10,7 +10,7 @@
 3. Установить зависимости из *requirements.txt* через настройки *PyCharm* в разделе *Python Interpreter*
 (если *PyCharm Professional Edition* ) или через командную строку:
 
-        pip install requirements.txt
+        pip install -r requirements.txt
 
 4. Создать БД с именем **avia** через уже установленный *pgAdmin III*
 5. Создать пользователя **avia**, пароль **12345** в командной строке

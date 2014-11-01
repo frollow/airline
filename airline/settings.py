@@ -41,7 +41,7 @@ INSTALLED_APPS = (
     'airport',
     'flight',
     'city',
-    'country'
+    'country',
 )
 
 MIDDLEWARE_CLASSES = (
