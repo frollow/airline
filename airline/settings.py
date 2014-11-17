@@ -53,6 +53,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+CONTEXT_PROCESSORS = (
+    'django.core.context_processors.csrf',
+)
+
 ROOT_URLCONF = 'airline.urls'
 
 WSGI_APPLICATION = 'airline.wsgi.application'
