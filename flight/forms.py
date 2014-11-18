@@ -4,6 +4,7 @@ from city.models import City
 from functools import partial
 from models import Flight
 
+
 class SearchForm(forms.Form):
     DateInput = partial(forms.DateInput, {'class': 'datepicker'})
     FIRST_CLASS = 'F'
@@ -19,5 +20,5 @@ class SearchForm(forms.Form):
     departure_date = forms.DateField(widget=DateInput())
     arrival_date = forms.DateField(widget=DateInput())
     class_of_service = forms.ChoiceField(initial=ECONOMY_CLASS, choices=CLASS_OF_SERVICE)
-    adults = forms.ChoiceField(choices=(('1','1'),('2','2'),('3','3')))
-    children = forms.ChoiceField(choices=(('0','0'),('1','1'),('2','2'),('3','3')))
+    adults = forms.ChoiceField(choices=(('1', '1'), ('2', '2'), ('3', '3')))
+    children = forms.ChoiceField(choices=(('0', '0'), ('1', '1'), ('2', '2'), ('3', '3')))

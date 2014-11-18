@@ -7,7 +7,7 @@
 2. Перейти в папку проекта
 
         cd C:\Users\Admin\Desktop\airline
-3. Установить зависимости из *requirements.txt* через настройки *PyCharm* в разделе *Python Interpreter*
+3. Установить зависимости из *requirements.txt* через настройки *PyCharm* в разделе *Project Interpreter*
 (если *PyCharm Professional Edition* ) или через командную строку:
 
         pip install -r requirements.txt

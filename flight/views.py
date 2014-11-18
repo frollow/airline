@@ -10,15 +10,15 @@ from django.forms.models import modelformset_factory
 from django.shortcuts import render_to_response
 from forms import *
 
+
 class ListFlightView(ListView):
     model = Flight
     template_name = 'flights.html'
 
+
 def index(request):
     return render(request, 'index.html')
 
-def search_form(request):
-    return render(request, 'search_form.html')
 
 def search(request):
     if request.method == 'POST':
@@ -40,5 +40,6 @@ def search(request):
                                                               'children': children})
     else:
         search_form = SearchForm()
-    return render_to_response('search_form.html', {'search_form': search_form}, context_instance=RequestContext(request))
+    return render_to_response('search_form.html', {'search_form': search_form},
+                              context_instance=RequestContext(request))
 
