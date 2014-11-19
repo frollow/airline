@@ -15,5 +15,4 @@ class FlightAdmin(ModelAdmin):
     model = Flight
     form = AdminFlightForm
 
-
 admin.site.register(Flight, FlightAdmin)
