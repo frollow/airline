@@ -13,12 +13,11 @@ class SearchForm(forms.Form):
     CLASS_OF_SERVICE = (
         (FIRST_CLASS, 'First'),
         (BUSINESS_CLASS, 'Business'),
-        (ECONOMY_CLASS, 'Econom'),
+        (ECONOMY_CLASS, 'Economic'),
     )
     departure_city = forms.ModelChoiceField(queryset=City.objects.all(), required=True)
     arrival_city = forms.ModelChoiceField(queryset=City.objects.all())
     departure_date = forms.DateField(widget=DateInput())
-    arrival_date = forms.DateField(widget=DateInput())
     class_of_service = forms.ChoiceField(initial=ECONOMY_CLASS, choices=CLASS_OF_SERVICE)
     adults = forms.ChoiceField(choices=(('1', '1'), ('2', '2'), ('3', '3')))
     children = forms.ChoiceField(choices=(('0', '0'), ('1', '1'), ('2', '2'), ('3', '3')))

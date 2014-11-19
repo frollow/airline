@@ -28,33 +28,23 @@ def search(request):
             departure_city = search_form.cleaned_data['departure_city']
             arrival_city = search_form.cleaned_data['arrival_city']
             departure_date = search_form.cleaned_data['departure_date']
-            arrival_date = search_form.cleaned_data['arrival_date']
             class_of_service = search_form.cleaned_data['class_of_service']
             adults = search_form.cleaned_data['adults']
             children = search_form.cleaned_data['children']
 
-            flights = Flight.objects.all()
+            flights = []
 
-            for flight in flights:
-                diff = departure_date - flight.departure_date_begin
+            for flight in Flight.objects.all():
+                diff = int((departure_date - flight.departure_date_begin).total_seconds() / 86400)
 
+                if diff >= 0 and diff % flight.repeat_interval == 0 \
+                        and flight.departure_airport.city == departure_city \
+                        and flight.arrival_airport.city == arrival_city:
+                    flights.append(flight)
 
-
-            flight = Flight()
-            flight.departure_city = departure_city
-            flight.arrival_city = arrival_city
-            flight.departure_city = departure_city
-
-            return render_to_response('flights.html', {'object_list': [flight, flight, flight],
+            return render_to_response('flights.html', {'object_list': flights,
                                                        'departure_date': departure_date,
-                                                       'arrival_date': arrival_date})
-            # return render_to_response('search_results.html', {'departure_city': departure_city,
-            #                                                   'arrival_city': arrival_city,
-            #                                                   'departure_date': departure_date,
-            #                                                   'arrival_date': arrival_date,
-            #                                                   'class_of_service': class_of_service,
-            #                                                   'adults': adults,
-            #                                                   'children': children})
+                                                       })
     else:
         search_form = SearchForm()
     return render_to_response('search_form.html', {'search_form': search_form},

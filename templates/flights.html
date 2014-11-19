@@ -6,11 +6,25 @@
 </head>
 <body>
 <h1>Flights</h1>
-
-<ul>
-  {% for flight in object_list %}
-    <li class="flight">{{ flight }}</li>
-  {% endfor %}
-</ul>
+<table>
+    {% for flight in object_list %}
+    <tr>
+        <th>Flight number</th>
+        <th>Departure date</th>
+        <th>Departure city</th>
+        <th>Arrival city</th>
+        <th>Departure time</th>
+        <th>Arrival time</th>
+    </tr>
+    <tr>
+        <td><a href="/fill_data/{{ flight.id }}">{{ flight.flight_number }}</a></td>
+        <td>{{ departure_date }}</td>
+        <td>{{ flight.departure_airport }}</td>
+        <td>{{ flight.arrival_airport }}</td>
+        <td>{{ flight.departure_time }}</td>
+       <td> {{ flight.arrival_time }}</td>
+    </tr>
+    {% endfor %}
+    </table>
 </body>
 </html>
