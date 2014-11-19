@@ -8,7 +8,7 @@ from city.models import City
 class AdminFlightForm(forms.ModelForm):
     cities = City.objects.all()
     departure_city = forms.ModelChoiceField(queryset=cities, required=True)
-    arrival_city = forms.ModelChoiceField(queryset=cities)
+    arrival_city = forms.ModelChoiceField(queryset=cities, required=True)
 
 
 class FlightAdmin(ModelAdmin):
