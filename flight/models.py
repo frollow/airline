@@ -24,11 +24,8 @@ class Flight(models.Model):
     departure_time = models.TimeField(verbose_name='Departure time', default="08:00")
     arrival_time = models.TimeField(verbose_name='Arrival time', default="10:00")
 
-    class_of_service = models.CharField(choices=CLASS_OF_SERVICE, max_length=1, default=ECONOMY_CLASS)
-
     def __unicode__(self):
-        return '{} : {} {} {} -> {} {} {} : {} : repeat = {}'.format(self.flight_number, self.departure_date_begin,
+        return '{} : {} {} {} -> {} {} {} : repeat = {}'.format(self.flight_number, self.departure_date_begin,
                                                                      self.departure_time, self.departure_airport,
                                                                      self.arrival_airport, self.arrival_date_begin,
-                                                                     self.arrival_time, self.class_of_service,
-                                                                     self.repeat_interval)
+                                                                     self.arrival_time, self.repeat_interval)

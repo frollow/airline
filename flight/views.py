@@ -28,9 +28,6 @@ def search(request):
             departure_city = search_form.cleaned_data['departure_city']
             arrival_city = search_form.cleaned_data['arrival_city']
             departure_date = search_form.cleaned_data['departure_date']
-            class_of_service = search_form.cleaned_data['class_of_service']
-            adults = search_form.cleaned_data['adults']
-            children = search_form.cleaned_data['children']
 
             flights = []
 
@@ -43,8 +40,7 @@ def search(request):
                     flights.append(flight)
 
             return render_to_response('flights.html', {'object_list': flights,
-                                                       'departure_date': departure_date,
-                                                       })
+                                                       'departure_date': departure_date})
     else:
         search_form = SearchForm()
     return render_to_response('search_form.html', {'search_form': search_form},
