@@ -26,7 +26,6 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = (
@@ -42,7 +41,8 @@ INSTALLED_APPS = (
     'flight',
     'city',
     'country',
-    'unique_flight'
+    'unique_flight',
+    'blog',
 )
 
 MIDDLEWARE_CLASSES = (

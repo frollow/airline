@@ -14,6 +14,7 @@ urlpatterns = patterns('',
                        url(r'^$', flight.views.index),
                        url(r'^search/$', flight.views.search),
                        url(r'^search_results/$', flight.views.search),
+                       url(r'^blog/', include('blog.urls')),
                        #url(r'^fill_data/([0-9])$', )
 
 )
