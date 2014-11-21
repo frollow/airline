@@ -2,6 +2,8 @@ from django.conf.urls import patterns, include, url
 
 import flight.views
 import flight.forms
+import order.views
+import order.forms
 
 from django.contrib import admin
 from django.views.generic.base import RedirectView
@@ -15,6 +17,7 @@ urlpatterns = patterns('',
                        url(r'^search/$', flight.views.search),
                        url(r'^search_results/$', flight.views.search),
                        url(r'^blog/', include('blog.urls')),
-                       #url(r'^fill_data/([0-9])$', )
+                       url(r'^fill_data/([0-9])/$', order.views.make_order),
+                       #url(r'^place_order/$', order.views.make_order),
 
 )
