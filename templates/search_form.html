@@ -1,22 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-    <link href="{{STATIC_URL}}jquery/jquery-ui.css" rel="stylesheet">
-    <script src="{{STATIC_URL}}jquery/jquery-1.9.1.js"></script>
-    <script src="{{STATIC_URL}}jquery/jquery-ui.js"></script>
-    <script>
-    $(document).ready(function() {
-        $('.datepicker').datepicker({ dateFormat: "yy-mm-dd" });
-    });
-    </script>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block main_content %}
     <form action="/search/" method="post">
         {% csrf_token %}
         {{ search_form.as_p }}
         <input type="submit" value="Search" />
     </form>
-</body>
-</html>
+{% endblock %}
