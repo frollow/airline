@@ -17,24 +17,11 @@ from unique_flight.models import UniqueFlight
 
 def fill_data(request):
     if request.method == 'POST':
-        flight_id = request.POST['flight_id']
-        departure_date = request.POST['departure_date']
+        unique_flight_id = request.POST['unique_flight_id']
         class_of_service = request.POST['class_of_service']
 
-        flight = Flight.objects.filter(id__exact=flight_id)[0]
-        unique_flights = UniqueFlight.objects.filter(flight__exact=flight)
+        unique_flight = UniqueFlight.objects.filter(id__exact=unique_flight_id)[0]
 
-        if unique_flights.count() == 0:
-            unique_flight = UniqueFlight(flight_id=flight_id,
-                                         departure_datetime=parse_datetime('{} {}'.format(departure_date,
-                                                                                          flight.departure_time)),
-                                         left_seats_F=flight.aircraft.seat_count_F,
-                                         left_seats_B=flight.aircraft.seat_count_B,
-                                         left_seats_E=flight.aircraft.seat_count_E)
-            unique_flight.save()
-
-        else:
-            unique_flight = unique_flights[0]
         order_form = OrderForm()
         return render_to_response('order.html', {'order_form': order_form, 'unique_flight': unique_flight,
                                                  'class_of_service': class_of_service,
@@ -71,6 +58,8 @@ def place_order(request):
                           email=email,
                           order_hash=uuid.uuid1().hex,
                           class_of_service=class_of_service)
+
+            order.unique_flight.take_seat(class_of_service)
             order.save()
             send_order(order)
             return render_to_response('status.html', {'status': 'Order created, link sent to you by email'},
