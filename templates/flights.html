@@ -6,8 +6,7 @@
 </head>
 <body>
 <h1>Flights</h1>
-<table cellspacing="2" border="1" cellpadding="5">
-    {% for flight in object_list %}
+    <table cellspacing="2" border="1" cellpadding="5">
     <tr>
         <th>Flight number</th>
         <th>Departure date</th>
@@ -16,13 +15,22 @@
         <th>Departure time</th>
         <th>Arrival time</th>
     </tr>
+    {% for flight in object_list %}
     <tr>
         <td><a href="/fill_data/{{ flight.id }}">{{ flight.flight_number }}</a></td>
-        <td>{{ departure_date }}</td>
+        <td>{{ departure_date|date:"Y-m-d" }}</td>
         <td>{{ flight.departure_airport }}</td>
         <td>{{ flight.arrival_airport }}</td>
         <td>{{ flight.departure_time }}</td>
-       <td> {{ flight.arrival_time }}</td>
+        <td> {{ flight.arrival_time }}</td>
+        <td>
+            <form action="/make_order/" method="post">
+                {% csrf_token %}
+                <input type="submit" name="action" value="Place order" />
+                <input type="hidden" name="flight_id" value="{{ flight.id }}" />
+                <input type="hidden" name="departure_date" value="{{ departure_date|date:'Y-m-d' }}" />
+            </form>
+        </td>
     </tr>
     {% endfor %}
     </table>

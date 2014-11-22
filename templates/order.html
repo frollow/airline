@@ -3,11 +3,20 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
+    <link href="{{STATIC_URL}}jquery/jquery-ui.css" rel="stylesheet">
+    <script src="{{STATIC_URL}}jquery/jquery-1.9.1.js"></script>
+    <script src="{{STATIC_URL}}jquery/jquery-ui.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('.datepicker').datepicker({ dateFormat: "yy-mm-dd" });
+    });
+    </script>
 </head>
 <body>
 <form action="/search/" method="post">
     {% csrf_token %}
     {{ order_form.as_p }}
+    <input name="unique_flight_id" type="hidden" value="{{ unique_flight.id }}">
     <input type="submit" value="Place order" />
 </form>
 </body>
