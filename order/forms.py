@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from functools import partial
 from django import forms
+from flight.models import Flight
 
 
 class OrderForm(forms.Form):
@@ -15,3 +16,4 @@ class OrderForm(forms.Form):
     document_id = forms.CharField(max_length=11, min_length=7, initial='N373702')
     birth_day = forms.DateField(initial='1990-01-01', widget=DateInput())
     email = forms.EmailField(max_length=255, initial='airline-test@no-spam.ws')
+    class_of_service = forms.ChoiceField(choices=Flight.CLASS_OF_SERVICE, initial='E')

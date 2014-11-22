@@ -1,13 +1,9 @@
 # coding: utf-8
-from django.http.response import HttpResponseRedirect
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 from django.template.context import RequestContext
 from django.views.generic import ListView
-from flight.models import Flight
-from city.models import City
-from django import forms
-from django.forms.models import modelformset_factory
 from django.shortcuts import render_to_response
+from flight.models import Flight
 from forms import *
 
 

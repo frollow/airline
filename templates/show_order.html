@@ -6,6 +6,7 @@
     {{ order.last_name }}
     {{ order.unique_flight.departure_datetime }}
     {{ order.document_id }}
+    {{ order.class_of_service }}
     {% if not order.is_registered %}
         <form action="/register/" method="POST">
             {% csrf_token %}

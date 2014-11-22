@@ -9,7 +9,7 @@ class Aircraft(models.Model):
     CLASS_OF_SERVICE = (
         (FIRST_CLASS, 'First'),
         (BUSINESS_CLASS, 'Business'),
-        (ECONOMY_CLASS, 'Economic'),
+        (ECONOMY_CLASS, 'Economy'),
     )
     company = models.CharField(max_length=16)
     model = models.CharField(max_length=16)

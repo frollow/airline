@@ -57,6 +57,7 @@ def place_order(request):
             document_id = search_form.cleaned_data['document_id']
             birth_day = search_form.cleaned_data['birth_day']
             email = search_form.cleaned_data['email']
+            class_of_service = search_form.cleaned_data['class_of_service']
 
             order = Order(unique_flight_id=unique_flight_id,
                           first_name=first_name,
@@ -64,7 +65,8 @@ def place_order(request):
                           document_id=document_id,
                           birth_day=birth_day,
                           email=email,
-                          order_hash=uuid.uuid1().hex)
+                          order_hash=uuid.uuid1().hex,
+                          class_of_service=class_of_service)
             order.save()
             send_order(order)
             return render_to_response('status.html', {'status': 'Order created, link sent to you by email'},
