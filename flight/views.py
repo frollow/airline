@@ -17,7 +17,7 @@ class ListFlightView(ListView):
 
 
 def index(request):
-    return render(request, 'index.html')
+    return render(request, 'index.html', context_instance=RequestContext(request))
 
 
 def search(request):

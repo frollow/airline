@@ -17,7 +17,8 @@ urlpatterns = patterns('',
                        url(r'^search/$', flight.views.search),
                        url(r'^search_results/$', flight.views.search),
                        url(r'^blog/', include('blog.urls')),
-                       url(r'^make_order/$', order.views.make_order),
-                       #url(r'^place_order/$', order.views.make_order),
-
+                       url(r'^fill_data/$', order.views.fill_data),
+                       url(r'^place_order/$', order.views.place_order),
+                       url(r'^show_order/order_id/([0-9]+)/hash/([a-z0-9]+)/$', order.views.show_order),
+                       url(r'^register/$', order.views.register)
 )

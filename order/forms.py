@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-from django import forms
-from models import Order
-from django.utils import timezone
 from functools import partial
+from django import forms
+
 
 class OrderForm(forms.Form):
     # TODO: Сделать, чтобы формочка рисовалась из модели

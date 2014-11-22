@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('flight_number', models.CharField(max_length=8, verbose_name=b'Flight Number')),
-                ('departure_date_begin', models.DateField(default=datetime.date(2014, 11, 21), verbose_name=b'Departure date begin')),
-                ('arrival_date_begin', models.DateField(default=datetime.date(2014, 11, 21), verbose_name=b'Arrival date begin')),
+                ('departure_date_begin', models.DateField(default=datetime.date(2014, 11, 22), verbose_name=b'Departure date begin')),
+                ('arrival_date_begin', models.DateField(default=datetime.date(2014, 11, 22), verbose_name=b'Arrival date begin')),
                 ('repeat_interval', models.IntegerField(default=1, verbose_name=b'Repeat interval')),
                 ('departure_time', models.TimeField(default=b'08:00', verbose_name=b'Departure time')),
                 ('arrival_time', models.TimeField(default=b'10:00', verbose_name=b'Arrival time')),

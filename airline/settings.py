@@ -22,6 +22,9 @@ SECRET_KEY = '1*8-*#h_ym2(e=&_6&j7q+f753fp3ud$a346%1y)rh_k8beu^i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -82,15 +85,6 @@ DATABASES = {
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/

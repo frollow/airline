@@ -19,3 +19,14 @@
 6. Запустить *migrate* для создания необходимых таблиц в БД
 
         python manage.py migrate
+
+<hr/>
+Python has a little SMTP server built-in. You can start it in a second console with this command:
+
+python -m smtpd -n -c DebuggingServer localhost:1025
+This will simply print all the mails sent to localhost:1025 in the console.
+
+You have to configure Django to use this server in your settings.py:
+
+        EMAIL_HOST = 'localhost'
+        EMAIL_PORT = 1025

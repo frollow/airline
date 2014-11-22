@@ -17,14 +17,14 @@
     </tr>
     {% for flight in object_list %}
     <tr>
-        <td><a href="/fill_data/{{ flight.id }}">{{ flight.flight_number }}</a></td>
+        <td>{{ flight.flight_number }}</td>
         <td>{{ departure_date|date:"Y-m-d" }}</td>
         <td>{{ flight.departure_airport }}</td>
         <td>{{ flight.arrival_airport }}</td>
         <td>{{ flight.departure_time }}</td>
         <td> {{ flight.arrival_time }}</td>
         <td>
-            <form action="/make_order/" method="post">
+            <form action="/fill_data/" method="post">
                 {% csrf_token %}
                 <input type="submit" name="action" value="Place order" />
                 <input type="hidden" name="flight_id" value="{{ flight.id }}" />

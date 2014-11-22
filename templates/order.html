@@ -13,7 +13,7 @@
     </script>
 </head>
 <body>
-<form action="/search/" method="post">
+<form action="/place_order/" method="post">
     {% csrf_token %}
     {{ order_form.as_p }}
     <input name="unique_flight_id" type="hidden" value="{{ unique_flight.id }}">
