@@ -19,6 +19,8 @@ def fill_data(request):
     if request.method == 'POST':
         flight_id = request.POST['flight_id']
         departure_date = request.POST['departure_date']
+        class_of_service = request.POST['class_of_service']
+
         flight = Flight.objects.filter(id__exact=flight_id)[0]
         unique_flights = UniqueFlight.objects.filter(flight__exact=flight)
 
@@ -34,7 +36,9 @@ def fill_data(request):
         else:
             unique_flight = unique_flights[0]
         order_form = OrderForm()
-        return render_to_response('order.html', {'order_form': order_form, 'unique_flight': unique_flight},
+        return render_to_response('order.html', {'order_form': order_form, 'unique_flight': unique_flight,
+                                                 'class_of_service': class_of_service,
+                                                 'price': unique_flight.get_price(class_of_service)},
                                   context_instance=RequestContext(request))
     else:
         return redirect('/search/')
@@ -57,7 +61,7 @@ def place_order(request):
             document_id = search_form.cleaned_data['document_id']
             birth_day = search_form.cleaned_data['birth_day']
             email = search_form.cleaned_data['email']
-            class_of_service = search_form.cleaned_data['class_of_service']
+            class_of_service = request.POST['class_of_service']
 
             order = Order(unique_flight_id=unique_flight_id,
                           first_name=first_name,
@@ -81,7 +85,8 @@ def show_order(request, order_id, order_hash):
     except Order.DoesNotExist:
         raise Http404
 
-    return render_to_response('show_order.html', {'order': order},
+    return render_to_response('show_order.html', {'order': order,
+                                                  'price': order.unique_flight.get_price(order.class_of_service)},
                               context_instance=RequestContext(request))
 
 

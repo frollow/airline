@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-<h1>Flights</h1>
-    <table cellspacing="2" border="1" cellpadding="5">
+{% extends 'base.html' %}
+
+{% block content_head %}
+    <h1>Flights</h1>
+{% endblock %}
+
+{% block main_content %}
+     <table cellspacing="2" border="1" cellpadding="5">
     <tr>
         <th>Flight number</th>
         <th>Departure date</th>
@@ -14,25 +13,37 @@
         <th>Arrival city</th>
         <th>Departure time</th>
         <th>Arrival time</th>
+        <th>Economy</th>
+        <th>Business</th>
+        <th>First</th>
+        <th></th>
     </tr>
     {% for flight in object_list %}
-    <tr>
-        <td>{{ flight.flight_number }}</td>
-        <td>{{ departure_date|date:"Y-m-d" }}</td>
-        <td>{{ flight.departure_airport }}</td>
-        <td>{{ flight.arrival_airport }}</td>
-        <td>{{ flight.departure_time }}</td>
-        <td> {{ flight.arrival_time }}</td>
-        <td>
-            <form action="/fill_data/" method="post">
-                {% csrf_token %}
-                <input type="submit" name="action" value="Place order" />
-                <input type="hidden" name="flight_id" value="{{ flight.id }}" />
-                <input type="hidden" name="departure_date" value="{{ departure_date|date:'Y-m-d' }}" />
-            </form>
-        </td>
-    </tr>
+        <form action="/fill_data/" method="post">
+            {% csrf_token %}
+            <tr>
+                <td>{{ flight.flight_number }}</td>
+                <td>{{ departure_date|date:"Y-m-d" }}</td>
+                <td>{{ flight.departure_airport }}</td>
+                <td>{{ flight.arrival_airport }}</td>
+                <td>{{ flight.departure_time }}</td>
+                <td>{{ flight.arrival_time }}</td>
+                <td>
+                    <input id="class_of_service_E" type="radio" name="class_of_service" value="E" checked="true"/>{{ flight.price_E }}
+                </td>
+                <td>
+                    <input type="radio" name="class_of_service" value="B"/> {{ flight.price_B }}
+                </td>
+                <td>
+                    <input type="radio" name="class_of_service" value="F"/> {{ flight.price_F }}
+                </td>
+                <td>
+                    <input type="submit" name="action" value="Place order" />
+                    <input type="hidden" name="flight_id" value="{{ flight.id }}" />
+                    <input type="hidden" name="departure_date" value="{{ departure_date|date:'Y-m-d' }}" />
+                </td>
+            </tr>
+        </form>
     {% endfor %}
     </table>
-</body>
-</html>
+{% endblock %}

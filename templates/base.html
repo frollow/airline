@@ -21,6 +21,9 @@
         {% endblock %}
         <script type="text/javascript">
             $(function(){
+                $(document).ready(function() {
+                    $('.datepicker').datepicker({ dateFormat: "yy-mm-dd" });
+                });
                 {% block jquery %}
                 {% endblock %}
             });

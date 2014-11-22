@@ -31,6 +31,7 @@ class Flight(models.Model):
 
     def __unicode__(self):
         return '{} : {} {} {} -> {} {} {} : repeat = {}: {}'.format(self.flight_number, self.departure_date_begin,
-                                                                     self.departure_time, self.departure_airport,
-                                                                     self.arrival_airport, self.arrival_date_begin,
-                                                                     self.arrival_time, self.repeat_interval, self.aircraft)
+                                                                    self.departure_time, self.departure_airport,
+                                                                    self.arrival_airport, self.arrival_date_begin,
+                                                                    self.arrival_time, self.repeat_interval,
+                                                                    self.aircraft)

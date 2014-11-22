@@ -1,23 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title></title>
-    <link href="{{STATIC_URL}}jquery/jquery-ui.css" rel="stylesheet">
-    <script src="{{STATIC_URL}}jquery/jquery-1.9.1.js"></script>
-    <script src="{{STATIC_URL}}jquery/jquery-ui.js"></script>
-    <script>
-    $(document).ready(function() {
-        $('.datepicker').datepicker({ dateFormat: "yy-mm-dd" });
-    });
-    </script>
-</head>
-<body>
-<form action="/place_order/" method="post">
-    {% csrf_token %}
-    {{ order_form.as_p }}
-    <input name="unique_flight_id" type="hidden" value="{{ unique_flight.id }}">
-    <input type="submit" value="Place order" />
-</form>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block main_content%}
+
+    <form action="/place_order/" method="post">
+        {% csrf_token %}
+        {{ order_form.as_p }}
+        Class of service: {{ class_of_service }} <br/> {# TODO: make selectable: ajax #}
+        Price: {{ price }} <br/>
+        <input name="unique_flight_id" type="hidden" value="{{ unique_flight.id }}">
+        <input name="class_of_service" type="hidden" value="{{ class_of_service }}"> {# TODO: remove #}
+        <input type="submit" value="Place order" />
+    </form>
+
+{% endblock %}
