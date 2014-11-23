@@ -4,7 +4,17 @@ from flight.models import Flight
 
 class FlightAdmin(ModelAdmin):
     model = Flight
-    list_display = ('flight_number', 'departure_airport', 'arrival_airport', 'departure_date_begin',
-                    'arrival_date_begin', 'repeat_interval', 'departure_time', 'arrival_time', 'aircraft')
+    list_display = ('flight_number',
+                    'departure_airport',
+                    'arrival_airport',
+                    'departure_date_begin',
+                    'arrival_date_begin',
+                    'repeat_interval',
+                    'departure_time',
+                    'arrival_time',
+                    'aircraft',
+                    'price_F',
+                    'price_B',
+                    'price_E')
 
 admin.site.register(Flight, FlightAdmin)

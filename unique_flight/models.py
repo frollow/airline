@@ -19,10 +19,17 @@ class UniqueFlight(models.Model):
             return self.flight.price_F
 
     def take_seat(self, class_of_service):
-        if class_of_service == Flight.ECONOMY_CLASS:
+        if class_of_service == Flight.ECONOMY_CLASS and self.left_seats_E > 0:
             self.left_seats_E -= 1
-        elif class_of_service == Flight.BUSINESS_CLASS:
+            self.save()
+            return True
+        elif class_of_service == Flight.BUSINESS_CLASS and self.left_seats_B > 0:
             self.left_seats_B -= 1
-        else:
+            self.save()
+            return True
+        elif class_of_service == Flight.FIRST_CLASS and self.left_seats_F > 0:
             self.left_seats_F -= 1
-        self.save()
+            self.save()
+            return True
+        else:
+            return False

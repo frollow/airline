@@ -59,10 +59,13 @@ def place_order(request):
                           order_hash=uuid.uuid1().hex,
                           class_of_service=class_of_service)
 
-            order.unique_flight.take_seat(class_of_service)
-            order.save()
-            send_order(order)
-            return render_to_response('status.html', {'status': 'Order created, link sent to you by email'},
+            if order.unique_flight.take_seat(class_of_service):
+                order.save()
+                send_order(order)
+                return render_to_response('status.html', {'status': 'Order created, link sent to you by email'},
+                                      context_instance=RequestContext(request))
+            else:
+                return render_to_response('status.html', {'status': 'We are sorry, but there are no free places of class you have chosen'},
                                       context_instance=RequestContext(request))
     else:
         return redirect('/search/')
@@ -85,10 +88,13 @@ def register(request):
 
     diff = int((order.unique_flight.departure_datetime - datetime.datetime.now()).total_seconds() / 60)
 
-    if 0 < diff < 360:
+    if 30 < diff < 360:
         order.is_registered = True
         order.registration_time = datetime.datetime.now()
         return render_to_response('status.html', {'status': 'You are successfully registered'},
+                                  context_instance=RequestContext(request))
+    elif diff < 30:
+        return render_to_response('status.html', {'status': 'Sorry, but registration on this flight completed'},
                                   context_instance=RequestContext(request))
     else:
         return render_to_response('status.html', {'status': 'It is not time for registration yet'},

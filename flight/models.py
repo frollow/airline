@@ -26,12 +26,19 @@ class Flight(models.Model):
     arrival_time = models.TimeField(verbose_name='Arrival time', default="10:00")
     aircraft = models.ForeignKey(Aircraft, verbose_name='Aircraft', default='', related_name='aircraft')
     price_F = models.FloatField(verbose_name='Price first class', default='22500')
-    price_B = models.FloatField(verbose_name='Price first class', default='18200')
-    price_E = models.FloatField(verbose_name='Price first class', default='11400')
+    price_B = models.FloatField(verbose_name='Price business class', default='18200')
+    price_E = models.FloatField(verbose_name='Price economic class', default='11400')
 
     def __unicode__(self):
-        return '{} : {} {} {} -> {} {} {} : repeat = {}: {}'.format(self.flight_number, self.departure_date_begin,
-                                                                    self.departure_time, self.departure_airport,
-                                                                    self.arrival_airport, self.arrival_date_begin,
-                                                                    self.arrival_time, self.repeat_interval,
-                                                                    self.aircraft)
+        return '{} : {} {} {} -> {} {} {} : repeat = {}: {}'.format(self.flight_number,
+                                                                    self.departure_date_begin,
+                                                                    self.departure_time,
+                                                                    self.departure_airport,
+                                                                    self.arrival_airport,
+                                                                    self.arrival_date_begin,
+                                                                    self.arrival_time,
+                                                                    self.repeat_interval,
+                                                                    self.aircraft,
+                                                                    self.price_F,
+                                                                    self.price_B,
+                                                                    self.price_E)
