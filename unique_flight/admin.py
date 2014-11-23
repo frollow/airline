@@ -14,7 +14,7 @@ class UniqueFlightAdmin(ModelAdmin):
     #     uniqueflight_id = request.GET['uniqueflight']
     #     return super(UniqueFlightAdmin, self).__call__(request, url)
     # form = UniqueFlightForm
-    list_display = ('flight', 'left_seats_F', 'left_seats_B', 'left_seats_E')
+    list_display = ('id', 'flight', 'left_seats_F', 'left_seats_B', 'left_seats_E')
     #readonly_fields = ('unique_id',)
 
 admin.site.register(UniqueFlight, UniqueFlightAdmin)

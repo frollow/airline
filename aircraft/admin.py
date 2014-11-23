@@ -8,4 +8,5 @@ class AircraftAdmin(ModelAdmin):
     list_display = ('company', 'model', 'seat_count_F', 'seat_count_B', 'seat_count_E')
 
 
+
 admin.site.register(Aircraft, AircraftAdmin)
