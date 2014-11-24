@@ -4,6 +4,7 @@ from django.template.context import RequestContext
 from django.utils.dateparse import parse_datetime
 from django.views.generic import ListView
 from django.shortcuts import render_to_response
+from blog.models import Post
 
 from flight.models import Flight
 from forms import *
@@ -16,7 +17,10 @@ class ListFlightView(ListView):
 
 
 def index(request):
-    return render(request, 'index.html', context_instance=RequestContext(request))
+    search_form = SearchForm()
+    posts = Post.objects.all()
+    return render(request, 'index.html', {'search_form': search_form,
+                                          'object_list': posts}, context_instance=RequestContext(request))
 
 
 def search(request):
@@ -53,10 +57,11 @@ def search(request):
 
                 unique_flights.append(unique_flight)
 
-            return render_to_response('flights.html', {'unique_flights': unique_flights},
+            return render_to_response('flights.html', {'unique_flights': unique_flights,
+                                                       'search_form': search_form},
                                       context_instance=RequestContext(request))
     else:
         search_form = SearchForm()
-    return render_to_response('search_form.html', {'search_form': search_form},
+    return render_to_response('search.html', {'search_form': search_form},
                               context_instance=RequestContext(request))
 
