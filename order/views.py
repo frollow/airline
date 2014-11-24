@@ -59,14 +59,15 @@ def place_order(request):
                           order_hash=uuid.uuid1().hex,
                           class_of_service=class_of_service)
 
-            if order.unique_flight.take_seat(class_of_service):
+            if order.unique_flight.try_take_seat(class_of_service):
                 order.save()
                 send_order(order)
                 return render_to_response('status.html', {'status': 'Order created, link sent to you by email'},
-                                      context_instance=RequestContext(request))
+                                          context_instance=RequestContext(request))
             else:
-                return render_to_response('status.html', {'status': 'We are sorry, but there are no free places of class you have chosen'},
-                                      context_instance=RequestContext(request))
+                return render_to_response('status.html', {
+                    'status': 'We are sorry, but there are no free places of class you have chosen'},
+                                          context_instance=RequestContext(request))
     else:
         return redirect('/search/')
 

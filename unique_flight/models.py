@@ -18,7 +18,7 @@ class UniqueFlight(models.Model):
         else:
             return self.flight.price_F
 
-    def take_seat(self, class_of_service):
+    def try_take_seat(self, class_of_service):
         if class_of_service == Flight.ECONOMY_CLASS and self.left_seats_E > 0:
             self.left_seats_E -= 1
             self.save()
@@ -33,3 +33,8 @@ class UniqueFlight(models.Model):
             return True
         else:
             return False
+
+    def __unicode__(self):
+        return "{} {} - {} : {} {} {}".format(self.departure_datetime, self.flight.departure_airport,
+                            self.flight.arrival_airport, self.left_seats_E, self.left_seats_B,
+                            self.left_seats_F)

@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.contrib.admin.options import ModelAdmin
 from flight.models import Flight
 
+
 class FlightAdmin(ModelAdmin):
     model = Flight
     list_display = ('flight_number',
@@ -16,5 +17,6 @@ class FlightAdmin(ModelAdmin):
                     'price_F',
                     'price_B',
                     'price_E')
+
 
 admin.site.register(Flight, FlightAdmin)

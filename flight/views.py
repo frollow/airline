@@ -37,17 +37,17 @@ def search(request):
                         or flight.arrival_airport.city != arrival_city:
                     continue
 
-                db_unique_flights = UniqueFlight.objects.filter(flight__exact=flight)
+                departure_datetime = parse_datetime('{} {}'.format(departure_date, flight.departure_time))
+                db_unique_flights = UniqueFlight.objects.filter(flight__exact=flight,
+                                                                departure_datetime=departure_datetime)
 
                 if db_unique_flights.count() == 0:
                     unique_flight = UniqueFlight(flight_id=flight.id,
-                                                 departure_datetime=parse_datetime('{} {}'.format(departure_date,
-                                                                                                  flight.departure_time)),
+                                                 departure_datetime=departure_datetime,
                                                  left_seats_F=flight.aircraft.seat_count_F,
                                                  left_seats_B=flight.aircraft.seat_count_B,
                                                  left_seats_E=flight.aircraft.seat_count_E)
                     unique_flight.save()
-
                 else:
                     unique_flight = db_unique_flights[0]
 
