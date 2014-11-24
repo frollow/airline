@@ -62,7 +62,7 @@ class Aircraft(models.Model):
                 if j == self.seats_in_a_row_E:
                     j = 0
                     break
-                seats_E.append(str(seat_letters[j]) + str(i+1))
+                seats_E.append(str(seat_letters[j]) + str(i + 1))
                 j += 1
             i += 1
         return {'seats_F': seats_F, 'seats_B': seats_B, 'seats_E': seats_E}
