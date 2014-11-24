@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+{% block js_content %}
+    $(document).ready(function() {
+        $(".menu_main").addClass('active');
+    });
+{% endblock %}
+
 {% block content_head %}
 {#    TODO: search here #}
 {% endblock %}
