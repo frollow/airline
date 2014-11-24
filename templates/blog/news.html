@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block js_content %}
+    $(document).ready(function() {
+        $(".menu_news").addClass('active');
+    });
+{% endblock %}
+
+{% block main_content %}
+    {% include 'blog/post_list.html' %}
+{% endblock %}
