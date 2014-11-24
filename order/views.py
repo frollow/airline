@@ -8,6 +8,7 @@ from django.http import Http404
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
 from django.utils.dateparse import parse_datetime
+from aircraft.models import Aircraft
 
 from flight.models import Flight
 from order.forms import OrderForm
@@ -89,7 +90,12 @@ def register(request):
 
     diff = int((order.unique_flight.departure_datetime - datetime.datetime.now()).total_seconds() / 60)
 
-    if 30 < diff < 360:
+    if order.is_registered:
+        return render_to_response('status.html', {'status': 'You have already registered'},
+                                  context_instance=RequestContext(request))
+    elif 30 < diff < 360:
+        # TODO: Здесь нужно предоставить выбор места
+
         order.is_registered = True
         order.registration_time = datetime.datetime.now()
         return render_to_response('status.html', {'status': 'You are successfully registered'},
