@@ -1,15 +1,5 @@
-{% extends 'base.html' %}
-
-{% block js_content %}
-    $(document).ready(function() {
-        $(".menu_search").addClass('active');
-    });
-{% endblock %}
-
-{% block main_content %}
-    <form action="/search/" method="post">
-        {% csrf_token %}
-        {{ search_form.as_p }}
-        <input type="submit" value="Search" />
-    </form>
-{% endblock %}
+<form action="/search/" method="post">
+    {% csrf_token %}
+    {{ search_form.as_p }}
+    <input type="submit" value="Search" />
+</form>

@@ -7,12 +7,9 @@
 {% endblock %}
 
 {% block content_head %}
-{#    TODO: search here #}
+    {% include 'search_form.html' %}
 {% endblock %}
 
 {% block main_content %}
-    <a href="blog">blog</a> <br/>
-    <a href="search">search</a>
-
-{#    TODO: blog list of posts here #}
+    {% include 'blog/post_list.html' %}
 {% endblock %}

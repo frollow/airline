@@ -16,7 +16,8 @@ class ListFlightView(ListView):
 
 
 def index(request):
-    return render(request, 'index.html', context_instance=RequestContext(request))
+    search_form = SearchForm()
+    return render(request, 'index.html', {'search_form': search_form}, context_instance=RequestContext(request))
 
 
 def search(request):
@@ -53,7 +54,8 @@ def search(request):
 
                 unique_flights.append(unique_flight)
 
-            return render_to_response('flights.html', {'unique_flights': unique_flights},
+            return render_to_response('flights.html', {'unique_flights': unique_flights,
+                                                       'search_form': search_form},
                                       context_instance=RequestContext(request))
     else:
         search_form = SearchForm()

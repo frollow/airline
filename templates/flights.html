@@ -1,7 +1,13 @@
 {% extends 'base.html' %}
 
+{% block js_content %}
+    $(document).ready(function() {
+        $(".menu_search").addClass('active');
+    });
+{% endblock %}
+
 {% block content_head %}
-    <h1>Flights</h1>
+    {% include 'search_form.html' %}
 {% endblock %}
 
 {% block main_content %}
@@ -30,7 +36,7 @@
                 <td>{{ unique_flight.flight.arrival_time }}</td>
                 <td>
                     {% if unique_flight.left_seats_E > 0 %}
-                        <input id="class_of_service_E" type="radio" name="class_of_service" value="E" checked="true"/>
+                            <input id="class_of_service_E" type="radio" name="class_of_service" value="E" checked="true"/>
                         {{ unique_flight.flight.price_E }}
                     {% else %}
                         not available
@@ -38,14 +44,14 @@
                 </td>
                 <td>
                     {% if unique_flight.left_seats_B > 0 %}
-                        <input type="radio" name="class_of_service" value="B"/> {{ unique_flight.flight.price_B }}
+                        <input type="radio" name="class_of_service" value="B" checked="true"/> {{ unique_flight.flight.price_B }}
                     {% else %}
                         not available
                     {% endif %}
                 </td>
                 <td>
                     {% if unique_flight.left_seats_F > 0 %}
-                        <input type="radio" name="class_of_service" value="F"/> {{ unique_flight.flight.price_F }}
+                        <input type="radio" name="class_of_service" value="F" checked="true"/> {{ unique_flight.flight.price_F }}
                     {% else %}
                         not available
                     {% endif %}
