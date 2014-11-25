@@ -5,7 +5,7 @@ from django.utils.dateparse import parse_datetime
 from django.views.generic import ListView
 from django.shortcuts import render_to_response
 from blog.models import Post
-
+from datetime import timedelta
 from flight.models import Flight
 from forms import *
 from unique_flight.models import UniqueFlight
@@ -42,12 +42,17 @@ def search(request):
                     continue
 
                 departure_datetime = parse_datetime('{} {}'.format(departure_date, flight.departure_time))
+                uniq_diff = flight.arrival_date_begin - flight.departure_date_begin
+                arrival_date = departure_datetime.date() + timedelta(days=uniq_diff.days)
+                arrival_time = flight.arrival_time
                 db_unique_flights = UniqueFlight.objects.filter(flight__exact=flight,
                                                                 departure_datetime=departure_datetime)
 
                 if db_unique_flights.count() == 0:
                     unique_flight = UniqueFlight(flight_id=flight.id,
                                                  departure_datetime=departure_datetime,
+                                                 arrival_date=arrival_date,
+                                                 arrival_time=arrival_time,
                                                  left_seats_F=flight.aircraft.seat_count_F,
                                                  left_seats_B=flight.aircraft.seat_count_B,
                                                  left_seats_E=flight.aircraft.seat_count_E)

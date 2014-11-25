@@ -22,6 +22,7 @@ class Migration(migrations.Migration):
                 ('seats_in_a_row_F', models.IntegerField(default=0)),
                 ('seats_in_a_row_B', models.IntegerField(default=0)),
                 ('seats_in_a_row_E', models.IntegerField(default=0)),
+                ('seat_map_picture', models.ImageField(default=b'', upload_to=b'')),
             ],
             options={
             },

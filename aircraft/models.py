@@ -19,7 +19,7 @@ class Aircraft(models.Model):
     seats_in_a_row_F = models.IntegerField(default=0)
     seats_in_a_row_B = models.IntegerField(default=0)
     seats_in_a_row_E = models.IntegerField(default=0)
-    seat_map_picture = models.FileField(default='')
+    seat_map_picture = models.ImageField(default='')
 
     def get_seat_count(self, class_of_service):
         if class_of_service == self.FIRST_CLASS:

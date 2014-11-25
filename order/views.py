@@ -58,6 +58,7 @@ def place_order(request):
                           birth_day=birth_day,
                           email=email,
                           order_hash=uuid.uuid1().hex,
+                          booking_id=uuid.uuid1().hex[:7].upper(),
                           class_of_service=class_of_service)
 
             if order.unique_flight.try_take_seat(class_of_service):
@@ -80,20 +81,25 @@ def show_order(request, order_id, order_hash):
         raise Http404
     diff = int((order.unique_flight.departure_datetime - datetime.datetime.now()).total_seconds() / 60)
     if 30 < diff < 36000:
-        taken_seats = Order.get_taken_seats(order.unique_flight.id)
         aircraft = order.unique_flight.flight.aircraft
         free_seats = Order.get_free_seats(order.unique_flight.id, aircraft, order.class_of_service)
-        # записать в поле taken_seat выбранное место (таблица order)
         return render_to_response('show_order.html', {'order': order,
                                                       'price': order.unique_flight.get_price(order.class_of_service),
                                                       'free_seats': free_seats,
                                                       'order_id': order_id}, context_instance=RequestContext(request))
+    # if order.is_registered:
+    #     return render_to_response('ticket.html', {'order': order},
+    #                               context_instance=RequestContext(request))
 
 
 def register(request):
+    if request.method != 'POST':
+        return redirect('/search/')
+
     order_id = request.POST['order_id']
     order = Order.objects.get(pk=order_id)
     diff = int((order.unique_flight.departure_datetime - datetime.datetime.now()).total_seconds() / 60)
+
     if order.is_registered:
         return render_to_response('status.html', {'status': 'You have already registered'},
                                   context_instance=RequestContext(request))
@@ -110,3 +116,6 @@ def register(request):
     else:
         return render_to_response('status.html', {'status': 'It is not time for registration yet'},
                                   context_instance=RequestContext(request))
+
+def ticket(request):
+    pass

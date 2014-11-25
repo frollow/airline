@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
-    <h2>Your order #{{ order.id }}</h2>
+    <h2>Your {% if not order.is_registered %}order {% endif %} {% if order.is_registered %}ticket {% endif %}#{{ order.id }}</h2>
     {{ order.first_name }}
     {{ order.last_name }}
     {{ order.unique_flight.departure_datetime }}
+    {{ order.unique_flight.arrival_date }}
+    {{ order.unique_flight.arrival_time }}
     {{ order.document_id }}
     {{ order.class_of_service }}
-    {{ price }}
+    {{ order.taken_seat }}
+    {{ order.booking_id }}
     {% if not order.is_registered %}
         <form action="/register/" method="POST">
             {{ aircraft_form }}

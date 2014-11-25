@@ -14,6 +14,7 @@ class Order(models.Model):
     email = models.EmailField(max_length=255, verbose_name='Email', default='')
     unique_flight = models.ForeignKey(UniqueFlight, verbose_name='Unique flight', default='')
     order_hash = models.CharField(max_length=256, verbose_name='Hash', default='')
+    booking_id = models.CharField(max_length=7, verbose_name='Booking ID', default='')
     class_of_service = models.CharField(max_length=1, verbose_name='Class of service', default='E')
     taken_seat = models.CharField(max_length=4, default='')
 
