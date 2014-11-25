@@ -15,3 +15,15 @@ class Order(models.Model):
     unique_flight = models.ForeignKey(UniqueFlight, verbose_name='Unique flight', default='')
     order_hash = models.CharField(max_length=256, verbose_name='Hash', default='')
     class_of_service = models.CharField(max_length=1, verbose_name='Class of service', default='E')
+    taken_seat = models.CharField(max_length=4, default='')
+
+    @staticmethod
+    def get_taken_seats(unique_flight_id):
+        orders = Order.objects.all().filter(unique_flight_id=unique_flight_id)
+        return [order.taken_seat for order in orders]
+
+    @staticmethod
+    def get_free_seats(unique_flight_id, aircraft, class_of_service):
+        taken_seats = Order.get_taken_seats(unique_flight_id)
+        seats = aircraft.seat_map_generator()[class_of_service]
+        return [x for x in seats if x not in taken_seats]

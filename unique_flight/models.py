@@ -9,6 +9,7 @@ class UniqueFlight(models.Model):
     left_seats_F = models.IntegerField(verbose_name='Left seats of first class', default=0)
     left_seats_B = models.IntegerField(verbose_name='Left seats of business class', default=0)
     left_seats_E = models.IntegerField(verbose_name='Left seats of economic class', default=0)
+    taken_seats_list = models.CharField(verbose_name='List of taken seats', default='', max_length=2000)
 
     def get_price(self, class_of_service):
         if class_of_service == Flight.ECONOMY_CLASS:

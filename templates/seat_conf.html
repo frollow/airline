@@ -10,24 +10,14 @@
 <form action="/seat_conf/" method="post">
     {{ aircraft_form }}
     {% csrf_token %}
-    <p>
-    {% for seat_F in seat_conf.seats_F %}
-    <input id="seats_F" type="radio" name="seats_F" value="{{ seat_F }}" checked="false"/>{{ seat_F }}
-    {% endfor %}
-    </p>
-    <p>
-    {% for seat_B in seat_conf.seats_B %}
-    <input id="seats_B" type="radio" name="seats_B" value="{{ seat_B }}" checked="false"/>{{ seat_B }}
-    {% endfor %}
-    </p>
-    <p>
-    {% for seat_E in seat_conf.seats_E %}
-    <input id="seats_E" type="radio" name="seats_E" value="{{ seat_E }}" checked="false"/>{{ seat_E }}
-    {% endfor %}
-    </p>
-    <!--<p>{{ seat_conf.seats_F }}</p>-->
-    <!--<p>{{ seat_conf.seats_B }}</p>-->
-    <!--<p>{{ seat_conf.seats_E }}</p>-->
-    <input type="submit" value="Config!" />
+    {{ order }}
+    {{ price }}
+    <select name="seats">
+        {% for seat in free_seats %}
+            <option name="seat" value="{{ seat }}">{{ seat }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Confirm selection" />
+    <input type="hidden" name="order_id" id="order_id" value="{{ order_id }}" />
 </form>
 {% endblock %}
