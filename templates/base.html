@@ -12,6 +12,19 @@
             body {
                 padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
             }
+{#            .price:hover{background-color:#fffac2}#}
+            tr.hover:hover {
+                background-color: #f5f5f5;
+            }
+            tr:hover > td.price:hover {
+                background-color: #fdd1b0;
+            }
+            td.price {
+                background-color: #fffbcc;
+            }
+            tr:hover > td.price {
+                background-color: #ffeabf;
+            }
         </style>
         <!--[if lt IE 9]>
         <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
