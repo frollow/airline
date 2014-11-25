@@ -5,7 +5,7 @@ from unique_flight.models import UniqueFlight
 
 
 class Order(models.Model):
-    registration_time = models.DateTimeField(verbose_name='Flight registration time', default=datetime.datetime.now())
+    registration_time = models.DateTimeField(verbose_name='Flight registration time', default='1990-01-01 00:00')
     is_registered = models.BooleanField(verbose_name='Is registered', default=False)
     first_name = models.CharField(max_length=255, verbose_name='First name', default='')
     last_name = models.CharField(max_length=255, verbose_name='Last name', default='')

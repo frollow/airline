@@ -19,8 +19,8 @@ class Flight(models.Model):
                                           related_name='departure_airport')
     arrival_airport = models.ForeignKey(Airport, verbose_name='Arrival airport', default='',
                                         related_name='arrival_airport')
-    departure_date_begin = models.DateField(verbose_name='Departure date begin', default=datetime.datetime.now().date())
-    arrival_date_begin = models.DateField(verbose_name='Arrival date begin', default=datetime.datetime.now().date())
+    departure_date_begin = models.DateField(verbose_name='Departure date begin', default='1990-01-01')
+    arrival_date_begin = models.DateField(verbose_name='Arrival date begin', default='1990-01-01')
     repeat_interval = models.IntegerField(verbose_name='Repeat interval', default=1)
     departure_time = models.TimeField(verbose_name='Departure time', default="08:00")
     arrival_time = models.TimeField(verbose_name='Arrival time', default="10:00")
