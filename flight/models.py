@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-import datetime
 from django.db import models
+
 from aircraft.models import Aircraft
 from airport.models import Airport
 

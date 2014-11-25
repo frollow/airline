@@ -12,6 +12,7 @@
     {{ order.taken_seat }}
     {{ order.booking_id }}
     {% if not order.is_registered %}
+        <img src="{{ MEDIA_URL }}{{ order.unique_flight.flight.aircraft.seat_map_picture }}"/>
         <form action="/register/" method="POST">
             {{ aircraft_form }}
             {% csrf_token %}

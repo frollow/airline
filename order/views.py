@@ -87,9 +87,9 @@ def show_order(request, order_id, order_hash):
                                                       'price': order.unique_flight.get_price(order.class_of_service),
                                                       'free_seats': free_seats,
                                                       'order_id': order_id}, context_instance=RequestContext(request))
-    # if order.is_registered:
-    #     return render_to_response('ticket.html', {'order': order},
-    #                               context_instance=RequestContext(request))
+        # if order.is_registered:
+        # return render_to_response('ticket.html', {'order': order},
+        # context_instance=RequestContext(request))
 
 
 def register(request):
@@ -116,6 +116,7 @@ def register(request):
     else:
         return render_to_response('status.html', {'status': 'It is not time for registration yet'},
                                   context_instance=RequestContext(request))
+
 
 def ticket(request):
     pass

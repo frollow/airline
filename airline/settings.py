@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -59,6 +60,7 @@ MIDDLEWARE_CLASSES = (
 
 CONTEXT_PROCESSORS = (
     'django.core.context_processors.csrf',
+    'django.core.context_processors.media',
 )
 
 ROOT_URLCONF = 'airline.urls'
@@ -95,9 +97,11 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'img')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+MEDIA_URL = '/media/'
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates').replace('\\','/'),
+    os.path.join(BASE_DIR, 'templates').replace('\\', '/'),
 )
 

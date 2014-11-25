@@ -4,6 +4,7 @@ from django.db import models
 
 class Country(models.Model):
     country = models.CharField(max_length=255, verbose_name='Country')
+
     class Meta:
         verbose_name_plural = 'Countries'
 
