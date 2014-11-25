@@ -13,8 +13,8 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='aircraft',
-            name='seat_conf',
-            field=models.CharField(default=0, max_length=10000),
+            name='seat_map_picture',
+            field=models.FileField(default=b'', upload_to=b''),
             preserve_default=True,
         ),
     ]

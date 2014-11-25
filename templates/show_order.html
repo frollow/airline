@@ -10,7 +10,13 @@
     {{ price }}
     {% if not order.is_registered %}
         <form action="/register/" method="POST">
+            {{ aircraft_form }}
             {% csrf_token %}
+            <select name="seats">
+                {% for seat in free_seats %}
+                    <option name="seat" value="{{ seat }}">{{ seat }}</option>
+                {% endfor %}
+        </select>
             <input type="hidden" name="order_id" value="{{ order.id }}"/>
             <input type="submit" value="Register"/>
         </form>

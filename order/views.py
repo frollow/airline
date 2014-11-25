@@ -78,26 +78,30 @@ def show_order(request, order_id, order_hash):
         order = Order.objects.get(pk=order_id, order_hash=order_hash)
     except Order.DoesNotExist:
         raise Http404
-
-    return render_to_response('show_order.html', {'order': order,
-                                                  'price': order.unique_flight.get_price(order.class_of_service)},
-                              context_instance=RequestContext(request))
+    diff = int((order.unique_flight.departure_datetime - datetime.datetime.now()).total_seconds() / 60)
+    if 30 < diff < 36000:
+        taken_seats = Order.get_taken_seats(order.unique_flight.id)
+        aircraft = order.unique_flight.flight.aircraft
+        free_seats = Order.get_free_seats(order.unique_flight.id, aircraft, order.class_of_service)
+        # записать в поле taken_seat выбранное место (таблица order)
+        return render_to_response('show_order.html', {'order': order,
+                                                      'price': order.unique_flight.get_price(order.class_of_service),
+                                                      'free_seats': free_seats,
+                                                      'order_id': order_id}, context_instance=RequestContext(request))
 
 
 def register(request):
     order_id = request.POST['order_id']
     order = Order.objects.get(pk=order_id)
-
     diff = int((order.unique_flight.departure_datetime - datetime.datetime.now()).total_seconds() / 60)
-
     if order.is_registered:
         return render_to_response('status.html', {'status': 'You have already registered'},
                                   context_instance=RequestContext(request))
-    elif 30 < diff < 360:
-        # TODO: Здесь нужно предоставить выбор места
-
+    elif 30 < diff < 36000:
+        order.taken_seat = request.POST['seats']
         order.is_registered = True
         order.registration_time = datetime.datetime.now()
+        order.save()
         return render_to_response('status.html', {'status': 'You are successfully registered'},
                                   context_instance=RequestContext(request))
     elif diff < 30:

@@ -19,6 +19,7 @@ class Aircraft(models.Model):
     seats_in_a_row_F = models.IntegerField(default=0)
     seats_in_a_row_B = models.IntegerField(default=0)
     seats_in_a_row_E = models.IntegerField(default=0)
+    seat_map_picture = models.FileField(default='')
 
     def get_seat_count(self, class_of_service):
         if class_of_service == self.FIRST_CLASS:
@@ -65,7 +66,7 @@ class Aircraft(models.Model):
                 seats_E.append(str(seat_letters[j]) + str(i + 1))
                 j += 1
             i += 1
-        return {'seats_F': seats_F, 'seats_B': seats_B, 'seats_E': seats_E}
+        return {'F': seats_F, 'B': seats_B, 'E': seats_E}
 
     def __unicode__(self):
         return '{} {}'.format(self.company, self.model, self.seat_count_F, self.seat_count_B, self.seat_count_E)
