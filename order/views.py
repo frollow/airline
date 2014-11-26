@@ -80,17 +80,16 @@ def show_order(request, order_id, order_hash):
     except Order.DoesNotExist:
         raise Http404
     diff = int((order.unique_flight.departure_datetime - datetime.datetime.now()).total_seconds() / 60)
-    if 30 < diff < 36000:
+    if 30 < diff < 360:
         aircraft = order.unique_flight.flight.aircraft
         free_seats = Order.get_free_seats(order.unique_flight.id, aircraft, order.class_of_service)
         return render_to_response('show_order.html', {'order': order,
                                                       'price': order.unique_flight.get_price(order.class_of_service),
                                                       'free_seats': free_seats,
                                                       'order_id': order_id}, context_instance=RequestContext(request))
-        # if order.is_registered:
-        # return render_to_response('ticket.html', {'order': order},
-        # context_instance=RequestContext(request))
-
+    else:
+        return render_to_response('status.html', {'status': 'It is not time for registration yet'},
+                                  context_instance=RequestContext(request))
 
 def register(request):
     if request.method != 'POST':
@@ -103,7 +102,7 @@ def register(request):
     if order.is_registered:
         return render_to_response('status.html', {'status': 'You have already registered'},
                                   context_instance=RequestContext(request))
-    elif 30 < diff < 36000:
+    elif 30 < diff < 360:
         order.taken_seat = request.POST['seats']
         order.is_registered = True
         order.registration_time = datetime.datetime.now()

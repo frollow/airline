@@ -27,13 +27,14 @@ def show_seat_conf(request):
 def get_image(request):
     path_items = request.get_full_path().split('/')
     image_name = os.path.join(path_items[-2], path_items[-1])
-
+    image_ext = image_name.split('.')[-1]
     images = Aircraft.objects.filter(seat_map_picture=image_name)
+
 
     if images.count() == 0:
         raise Http404
 
     image = images[0].seat_map_picture
-    response = HttpResponse(FileWrapper(image), content_type='application/png')
-    response['Content-Disposition'] = 'attachment; filename=1.png'
+    response = HttpResponse(FileWrapper(image), content_type='image/%s' % image_ext)
+    response['Content-Disposition'] = 'attachment; filename=%s' % image_name.split('/')[-1]
     return response
