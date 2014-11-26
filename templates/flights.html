@@ -36,8 +36,8 @@
                         <td>{{ unique_flight.departure_datetime|date:"Y-m-d" }}</td>
                         <td>{{ unique_flight.flight.departure_airport }}</td>
                         <td>{{ unique_flight.flight.arrival_airport }}</td>
-                        <td>{{ unique_flight.flight.departure_time }}</td>
-                        <td>{{ unique_flight.flight.arrival_time }}</td>
+                        <td>{{ unique_flight.flight.departure_time|date:"H:i" }}</td>
+                        <td>{{ unique_flight.flight.arrival_time|time:"H:i" }}</td>
                         <td class="price">
                             {% if unique_flight.left_seats_E > 0 %}
                                 <label class="radio">
