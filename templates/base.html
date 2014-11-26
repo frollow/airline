@@ -108,7 +108,7 @@
         <script type="text/javascript">
             $(function(){
                 $(document).ready(function() {
-                    $('.datepicker').datepicker({ dateFormat: "yy-mm-dd" });
+                    $('.datepicker').datepicker({ dateFormat: "yy-mm-dd", minDate: "+2" });
                 });
                 {% block js_content %}{% endblock %}
             });
