@@ -70,3 +70,9 @@ def search(request):
     return render_to_response('search.html', {'search_form': search_form},
                               context_instance=RequestContext(request))
 
+
+
+def show_all(request):
+        unique_flight = Flight.objects.all()
+        return render_to_response('flights_all.html', {'object_list': unique_flight},
+                              context_instance=RequestContext(request))

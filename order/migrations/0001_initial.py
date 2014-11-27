@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import datetime
 
 
 class Migration(migrations.Migration):
@@ -16,7 +15,7 @@ class Migration(migrations.Migration):
             name='Order',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('registration_time', models.DateTimeField(default=datetime.datetime(2014, 11, 25, 6, 7, 53, 151883), verbose_name=b'Flight registration time')),
+                ('registration_time', models.DateTimeField(default=b'1990-01-01 00:00', verbose_name=b'Flight registration time')),
                 ('is_registered', models.BooleanField(default=False, verbose_name=b'Is registered')),
                 ('first_name', models.CharField(default=b'', max_length=255, verbose_name=b'First name')),
                 ('last_name', models.CharField(default=b'', max_length=255, verbose_name=b'Last name')),
