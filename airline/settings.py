@@ -77,10 +77,10 @@ WSGI_APPLICATION = 'airline.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        "NAME": "avia",
-        "USER": "avia",
-        "PASSWORD": "12345",
-        "HOST": "localhost",
+        "NAME": "dp5c00gno3a2j",
+        "USER": "gwlndioundmjln",
+        "PASSWORD": "Xa43phk7U6D3CfPFI0bxNtVipN",
+        "HOST": "ec2-54-225-182-133.compute-1.amazonaws.com",
         "PORT": "",
     }
 }
