@@ -2,3 +2,4 @@ Django>=1.7.1
 psycopg2
 flake8
 pillow
+dj_database_url
