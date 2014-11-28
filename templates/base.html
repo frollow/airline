@@ -131,7 +131,7 @@
                             <li class="menu_search">
                                 <a href="/search">Search</a>
                             </li>
-                             <li class="flights_all">
+                            <li class="flights_all">
                                 <a href="/flights_all">All flights</a>
                             </li>
                         </ul>
@@ -148,5 +148,26 @@
             {% block main_content %}{% endblock %}
          </div>
 
+         <div class="navbar-fixed-bottom navbar-inverse row-fluid"
+              style="text-align: center;">
+            <div class="navbar-inner">
+                <div class="container">
+                    {% block footer %}
+                        <table width="100%"><tr>
+                            <td width="25%">
+
+                            </td>
+                            <td width="50%">
+                                <div class="text-warning">AIRLINE © 2014</div>
+                            </td>
+                            <td width="25%">
+
+                            </td>
+                        </tr></table>
+
+                    {% endblock %}
+                </div>
+            </div>
+         </div>
     </body>
 </html>
