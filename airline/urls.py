@@ -26,4 +26,5 @@ urlpatterns = patterns('',
                        url(r'^register/$', order.views.register),
                        url(r'^seat_conf/$', aircraft.views.show_seat_conf),
                        url(r'^media/aircraft_images/[\w.]+$', aircraft.views.get_image),
+                       # url(r'^timetable/$', flight.views.timetable),
 )
