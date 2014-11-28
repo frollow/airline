@@ -102,6 +102,7 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates').replace('\\', '/'),
 )
 
+
 try:
     from local_settings import *
 except Exception as e:
