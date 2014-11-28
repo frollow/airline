@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+        {{ flight.flight_number }}
+        {{ flight.departure_airport }}
+        {{ flight.arrival_airport }}
+        {{ flight.departure_time }}
+        {{ flight.arrival_time }}
+        if {% interval %}{{ interval }}{% endif %}
+        Flight time {{ flight_time_hours }} hours and {{ flight_time_minutes }} minutes
+        {{ flight.aircraft.company }} {{ flight.aircraft.model }}
+{% endblock %}
