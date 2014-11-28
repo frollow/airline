@@ -1,28 +1,83 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
-    <h2>Your {% if not order.is_registered %}order {% endif %} {% if order.is_registered %}ticket {% endif %}#{{ order.id }}</h2>
-    {{ order.first_name }}
-    {{ order.last_name }}
-    {{ order.unique_flight.departure_datetime }}
-    {{ order.unique_flight.arrival_date }}
-    {{ order.unique_flight.arrival_time }}
-    {{ order.document_id }}
-    {{ order.class_of_service }}
-    {{ order.taken_seat }}
-    {{ order.booking_id }}
-    {% if not order.is_registered %}
-        <img src="{{ MEDIA_URL }}{{ order.unique_flight.flight.aircraft.seat_map_picture }}"/>
-        <form action="/register/" method="POST">
-            {{ aircraft_form }}
-            {% csrf_token %}
-            <select name="seats">
-                {% for seat in free_seats %}
-                    <option name="seat" value="{{ seat }}">{{ seat }}</option>
-                {% endfor %}
-        </select>
+
+    <h3>{% if not order.is_registered %}Order #{{ order.id }}{% endif %} {% if order.is_registered %}Ticket #
+        {{ order.id }} is successfully registered{% endif %}</h3>
+
+    <table class="table table-bordered">
+        <thead style="background-color:dimgray; color:white">
+        <tr>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Departure date</th>
+            <th>Departure time</th>
+            <th>Arrival date</th>
+            <th>Arrival time</th>
+            <th>Document id</th>
+            <th>Class of service</th>
+            <th>Booking id</th>
+            {% if order.is_registered %}
+                <th>Taken seat</th>
+            {% else %}
+                <th>Wanted seat</th>
+            {% endif %}
+        </tr>
+        </thead>
+        {% if not order.is_registered %}
+            <form action="/register/" method="POST">
+                {{ aircraft_form }}
+                {% csrf_token %}
+                <tbody>
+                <tr>
+                    <td>{{ order.first_name }}</td>
+                    <td>{{ order.last_name }}</td>
+                    <td>{{ order.unique_flight.departure_datetime|date:"d M Y" }}</td>
+                    <td>{{ order.unique_flight.departure_datetime|time:"H:i" }}</td>
+                    <td>{{ order.unique_flight.arrival_date|date:"d M Y" }}</td>
+                    <td>{{ order.unique_flight.arrival_time|time:"H:i" }}</td>
+                    <td>{{ order.document_id }}</td>
+                    <td>{{ order.class_of_service }}</td>
+                    <td>{{ order.booking_id }}</td>
+                    <td style="background-color: #ffeabf" >
+                        <select name="seats" autofocus="1" class="btn focused">
+                            {% for seat in free_seats %}
+                                <option name="seat" value="{{ seat }}">
+                                    {{ seat }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                </tbody>
+                </table>
+            <p class="help-block">Select the wanted seat number from the list and click "Register" button</p>
             <input type="hidden" name="order_id" value="{{ order.id }}"/>
-            <input type="submit" value="Register"/>
-        </form>
+            <input class="btn" type="submit" value="Register"/>
+            </form>
+        {% else %}
+            <tr>
+                <td>{{ order.first_name }}</td>
+                <td>{{ order.last_name }}</td>
+                <td>{{ order.unique_flight.departure_datetime|date:"d M Y" }}</td>
+                <td>{{ order.unique_flight.departure_datetime|time:"H:i" }}</td>
+                <td>{{ order.unique_flight.arrival_date|date:"d M Y" }}</td>
+                <td>{{ order.unique_flight.arrival_time|time:"H:i" }}</td>
+                <td>{{ order.document_id }}</td>
+                <td>{{ order.class_of_service }}</td>
+                <td>{{ order.booking_id }}</td>
+                <td>{{ order.taken_seat }}</td>
+            </tr>
+            </tbody>
+            </table>
+        {% endif %}
+
+    {% if order.is_registered %}
+        <h3>Your seat number is {{ order.taken_seat }} in class {{ order.class_of_service }}</h3>
     {% endif %}
+
+    <p></p>
+
+    <img src="{{ MEDIA_URL }}{{ order.unique_flight.flight.aircraft.seat_map_picture }}"/>
+
 {% endblock %}

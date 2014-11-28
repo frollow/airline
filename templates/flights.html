@@ -67,16 +67,16 @@
                         </td>
                         <td>
                             {% if unique_flight.left_seats_E > 0 %}
-                                <input type="submit" name="action" value="Place order"/>
+                                <input class="btn" type="submit" name="action" value="Place order"/>
                                 <input type="hidden" name="unique_flight_id" value="{{ unique_flight.id }}"/>
                             {% elif unique_flight.left_seats_B > 0 %}
-                                <input type="submit" name="action" value="Place order"/>
+                                <input class="btn" type="submit" name="action" value="Place order"/>
                                 <input type="hidden" name="unique_flight_id" value="{{ unique_flight.id }}"/>
                             {% elif unique_flight.left_seats_F > 0 %}
-                                <input type="submit" name="action" value="Place order"/>
+                                <input class="btn" type="submit" name="action" value="Place order"/>
                                 <input type="hidden" name="unique_flight_id" value="{{ unique_flight.id }}"/>
                             {% else %}
-                                <input type="submit" name="action" value="Place order" disabled/>
+                                <input class="btn" type="submit" name="action" value="Place order" disabled/>
                                 <input type="hidden" name="unique_flight_id" value="{{ unique_flight.id }}"/>
                             {% endif %}
                         </td>
