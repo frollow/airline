@@ -9,7 +9,7 @@ from datetime import timedelta
 from flight.models import Flight
 from forms import *
 from unique_flight.models import UniqueFlight
-
+from django.core.paginator import Paginator
 
 class ListFlightView(ListView):
     model = Flight
@@ -100,3 +100,31 @@ def timetable(request):
                                                      'flight_time_hours': flight_time_hours,
                                                      'flight_time_minutes': flight_time_minutes},
                                   context_instance=RequestContext(request))
+
+
+def show_all(request):
+    unique_flight = Flight.objects.all()
+    p = Paginator(unique_flight, 2)
+
+    if 'page' in request.POST:
+        page = request.POST.get("page", "")
+        page_number = int(page)
+    else:
+        page_number = 1
+
+    is_next = p.page(page_number).has_next()
+    is_previous = p.page(page_number).has_previous()
+    if 'next' in request.POST:
+        if is_next:
+            page_number += 1
+    if 'previous' in request.POST:
+        if is_previous:
+            page_number -= 1
+
+    is_next = p.page(page_number).has_next()
+    is_previous = p.page(page_number).has_previous()
+
+    current_objects = p.page(page_number).object_list
+    return render_to_response('flights_all.html', {'object_list': current_objects,
+                              'page_number': page_number, 'next': is_next, 'previous': is_previous},
+                               context_instance=RequestContext(request))
