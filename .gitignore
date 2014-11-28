@@ -48,7 +48,7 @@ coverage.xml
 # Django stuff:
 *.log
 *.pot
-local_settings*
+airline/settings.py
 
 # Sphinx documentation
 docs/_build/
