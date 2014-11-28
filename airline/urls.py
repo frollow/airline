@@ -24,5 +24,5 @@ urlpatterns = patterns('',
                        url(r'^show_order/order_id/([0-9]+)/hash/([a-z0-9]+)/$', order.views.show_order),
                        url(r'^register/$', order.views.register),
                        url(r'^seat_conf/$', aircraft.views.show_seat_conf),
-                       url(r'^media/aircraft_images/[\w.]+$', aircraft.views.get_image),
+                       url(r'^media/aircraft_images/[\w.-]+$', aircraft.views.get_image),
 )
