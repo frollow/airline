@@ -70,3 +70,33 @@ def search(request):
     return render_to_response('search.html', {'search_form': search_form},
                               context_instance=RequestContext(request))
 
+
+def timetable(request):
+    for flight in Flight.objects.all():
+        day = flight.departure_date_begin.strftime("%A")
+        interval = flight.repeat_interval
+        if interval == 1:
+            interval = 'Every day'
+        elif interval == 7:
+            interval = 'Every %s' % day
+        else:
+            interval = None
+        day_diff = flight.arrival_date_begin - flight.departure_date_begin
+        flight_time = ''
+        if day_diff.days > 1:
+            flight_time = (1440 - (flight.departure_time.hour * 60 + flight.departure_time.minute)) \
+                          + flight.arrival_time.hour * 60 + flight.arrival_time.minute + day_diff.days * 1440
+        elif day_diff.days == 1:
+            flight_time = (1440 - (flight.departure_time.hour * 60 + flight.departure_time.minute)) \
+                          + flight.arrival_time.hour * 60 + flight.arrival_time.minute
+        elif day_diff.days == 0:
+            flight_time = (flight.arrival_time.hour * 60 + flight.arrival_time.minute) - \
+                          (flight.departure_time.hour + flight.departure_time.minute)
+        flight_time_hours = flight_time // 60
+        flight_time_minutes = flight_time - flight_time_hours * 60
+        return render_to_response('timetable.html', {'flight': flight,
+                                                     'day': day,
+                                                     'interval': interval,
+                                                     'flight_time_hours': flight_time_hours,
+                                                     'flight_time_minutes': flight_time_minutes},
+                                  context_instance=RequestContext(request))
