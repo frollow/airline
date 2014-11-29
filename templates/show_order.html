@@ -5,7 +5,7 @@
     <h3>{% if not order.is_registered %}Order #{{ order.id }}{% endif %}
         {% if order.is_registered %}
             Ticket #{{ order.id }} is successfully registered.
-            <p class="help-block">Your seat number is {{ order.taken_seat }} in class {{ order.class_of_service }}</p>
+            <p class="help-block">Your seat number is {{ order.taken_seat }} in {% if order.class_of_service == 'F' %}first {% elif order.class_of_service == 'E' %}economy {% elif order.class_of_service == 'B' %}business {% endif %}class.</p>
         {% endif %}
     </h3>
 
@@ -35,7 +35,7 @@
                     <td>{{ order.unique_flight.arrival_date|date:"d M Y" }}</td>
                     <td>{{ order.unique_flight.arrival_time|time:"H:i" }}</td>
                     <td>{{ order.document_id }}</td>
-                    <td>{{ order.class_of_service }}</td>
+                    <td>{% if order.class_of_service == 'F' %}First{% elif order.class_of_service == 'E' %}Economy{% elif order.class_of_service == 'B' %}Business{% endif %}</td>
                     <td>{{ order.booking_id }}</td>
                     <td style="background-color: #ffeabf">
                         {{ aircraft_form }}
@@ -70,7 +70,7 @@
                 <th>Document id</th>
                 <th>Class of service</th>
                 <th>Booking id</th>
-                <th>Wanted seat</th>
+                <th>Taken seat</th>
             </tr>
             </thead>
             <tbody>
@@ -82,7 +82,7 @@
                 <td>{{ order.unique_flight.arrival_date|date:"d M Y" }}</td>
                 <td>{{ order.unique_flight.arrival_time|time:"H:i" }}</td>
                 <td>{{ order.document_id }}</td>
-                <td>{{ order.class_of_service }}</td>
+                <td>{% if order.class_of_service == 'F' %}First{% elif order.class_of_service == 'E' %}Economy{% elif order.class_of_service == 'B' %}Business{% endif %}</td>
                 <td>{{ order.booking_id }}</td>
                 <td>{{ order.taken_seat }}</td>
             </tr>
