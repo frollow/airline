@@ -23,6 +23,10 @@ def index(request):
                                           'object_list': posts}, context_instance=RequestContext(request))
 
 
+def contacts(request):
+    return render(request, 'contacts.html', context_instance=RequestContext(request))
+
+
 def search(request):
     if request.method == 'POST':
         search_form = SearchForm(request.POST)
@@ -126,5 +130,6 @@ def show_all(request):
 
     current_objects = p.page(page_number).object_list
     return render_to_response('flights_all.html', {'object_list': current_objects,
-                              'page_number': page_number, 'next': is_next, 'previous': is_previous},
-                               context_instance=RequestContext(request))
+                                                   'page_number': page_number, 'next': is_next,
+                                                   'previous': is_previous},
+                              context_instance=RequestContext(request))
