@@ -154,21 +154,33 @@
          <div class="navbar-fixed-bottom navbar-inverse row-fluid"
               style="text-align: center;">
             <div class="navbar-inner">
-                <div class="container">
-                    {% block footer %}
-                        <table style="width:100%">
-                            <tr>
-                                <td style="width:25%">
-                                </td>
-                                <td style="width:50%">
-                                    <div class="text-warning">AIRLINE © 2014</div>
-                                </td>
-                                <td style="width:25%">
-                                </td>
-                            </tr>
-                        </table>
-                    {% endblock %}
-                </div>
+                    <table style="width:100%">
+                        <tr>
+                            <td style="width:25%" align="left">
+                                <div class="btn-group dropup" style="padding-left: 30px;">
+                                  <button class="btn">Menu</button>
+                                  <button class="btn dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                  </button>
+                                  <ul align="center" class="dropdown-menu">
+                                    <a align="center" href="/">Main</a><br>
+                                    <a align="center" href="/blog">News</a><br>
+                                    <a align="center" href="/search">Search</a><br>
+                                    <a align="center" href="/flights_all">All flights</a><br>
+                                    <a align="center" href="/contacts">Contacts</a>
+                                  </ul>
+                                </div>
+                            </td>
+                            <td style="width:50%">
+                                <div class="text-warning">AIRLINE © 2014</div>
+                            </td>
+                            <td style="width:25%;" align="right">
+                                <a href="https://vk.com/tpu_ik_8vm41" title="8VM41 Вконтакте" style="padding-right: 30px;">
+                                    <img src='{{ STATIC_URL }}vk_logo.png' width="30" height="30" alt="8VM41 Вконтакте">
+                                </a>
+                            </td>
+                        </tr>
+                    </table>
             </div>
          </div>
     </body>
