@@ -2,32 +2,30 @@
 
 {% block main_content %}
 
-    <h3>{% if not order.is_registered %}Order #{{ order.id }}{% endif %} {% if order.is_registered %}Ticket #
-        {{ order.id }} is successfully registered{% endif %}</h3>
+    <h3>{% if not order.is_registered %}Order #{{ order.id }}{% endif %}
+        {% if order.is_registered %}
+            Ticket #{{ order.id }} is successfully registered.
+            <p class="help-block">Your seat number is {{ order.taken_seat }} in class {{ order.class_of_service }}</p>
+        {% endif %}
+    </h3>
 
-    <table class="table table-bordered">
-        <thead style="background-color:dimgray; color:white">
-        <tr>
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Departure date</th>
-            <th>Departure time</th>
-            <th>Arrival date</th>
-            <th>Arrival time</th>
-            <th>Document id</th>
-            <th>Class of service</th>
-            <th>Booking id</th>
-            {% if order.is_registered %}
-                <th>Taken seat</th>
-            {% else %}
-                <th>Wanted seat</th>
-            {% endif %}
-        </tr>
-        </thead>
-        {% if not order.is_registered %}
-            <form action="/register/" method="POST">
-                {{ aircraft_form }}
-                {% csrf_token %}
+    {% if not order.is_registered %}
+        <form action="/register/" method="POST">
+            <table class="table table-bordered">
+                <thead style="background-color:dimgray; color:white">
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Departure date</th>
+                    <th>Departure time</th>
+                    <th>Arrival date</th>
+                    <th>Arrival time</th>
+                    <th>Document id</th>
+                    <th>Class of service</th>
+                    <th>Booking id</th>
+                    <th>Wanted seat</th>
+                </tr>
+                </thead>
                 <tbody>
                 <tr>
                     <td>{{ order.first_name }}</td>
@@ -39,7 +37,9 @@
                     <td>{{ order.document_id }}</td>
                     <td>{{ order.class_of_service }}</td>
                     <td>{{ order.booking_id }}</td>
-                    <td style="background-color: #ffeabf" >
+                    <td style="background-color: #ffeabf">
+                        {{ aircraft_form }}
+                        {% csrf_token %}
                         <select name="seats" autofocus="1" class="btn focused">
                             {% for seat in free_seats %}
                                 <option name="seat" value="{{ seat }}">
@@ -50,12 +50,30 @@
                     </td>
                 </tr>
                 </tbody>
-                </table>
+            </table>
             <p class="help-block">Select the wanted seat number from the list and click "Register" button</p>
             <input type="hidden" name="order_id" value="{{ order.id }}"/>
             <input class="btn" type="submit" value="Register"/>
-            </form>
-        {% else %}
+        </form>
+    {% endif %}
+
+    {% if order.is_registered %}
+        <table class="table table-bordered">
+            <thead style="background-color:dimgray; color:white">
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Departure date</th>
+                <th>Departure time</th>
+                <th>Arrival date</th>
+                <th>Arrival time</th>
+                <th>Document id</th>
+                <th>Class of service</th>
+                <th>Booking id</th>
+                <th>Wanted seat</th>
+            </tr>
+            </thead>
+            <tbody>
             <tr>
                 <td>{{ order.first_name }}</td>
                 <td>{{ order.last_name }}</td>
@@ -69,11 +87,7 @@
                 <td>{{ order.taken_seat }}</td>
             </tr>
             </tbody>
-            </table>
-        {% endif %}
-
-    {% if order.is_registered %}
-        <h3>Your seat number is {{ order.taken_seat }} in class {{ order.class_of_service }}</h3>
+        </table>
     {% endif %}
 
     <p></p>
