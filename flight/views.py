@@ -10,6 +10,8 @@ from flight.models import Flight
 from forms import *
 from unique_flight.models import UniqueFlight
 from django.core.paginator import Paginator
+from datetime import datetime
+import datetime
 
 class ListFlightView(ListView):
     model = Flight
@@ -107,8 +109,42 @@ def timetable(request):
 
 
 def show_all(request):
-    unique_flight = Flight.objects.all()
-    p = Paginator(unique_flight, 2)
+
+    unique_flights = []
+
+    today = datetime.date.today()
+
+    for i in range(1, 183):
+        current_day = today + datetime.timedelta(days=i)
+
+        for flight in Flight.objects.all():
+            diff = int((current_day - flight.departure_date_begin).total_seconds() / 86400)
+
+            if diff < 0 or diff % flight.repeat_interval != 0:
+                continue
+
+            current_datetime = parse_datetime('{} {}'.format(current_day, flight.departure_time))
+            uniq_diff = flight.arrival_date_begin - flight.departure_date_begin
+            arrival_date = current_datetime.date() + timedelta(days=uniq_diff.days)
+            arrival_time = flight.arrival_time
+            db_unique_flights = UniqueFlight.objects.filter(flight__exact=flight,
+                                                            departure_datetime=current_datetime)
+
+            if db_unique_flights.count() == 0:
+                unique_flight = UniqueFlight(flight_id=flight.id,
+                                             departure_datetime=current_datetime,
+                                             arrival_date=arrival_date,
+                                             arrival_time=arrival_time,
+                                             left_seats_F=flight.aircraft.seat_count_F,
+                                             left_seats_B=flight.aircraft.seat_count_B,
+                                             left_seats_E=flight.aircraft.seat_count_E
+                                             )
+                unique_flight.save()
+            else:
+                unique_flight = db_unique_flights[0]
+            unique_flights.append(unique_flight)
+
+    p = Paginator(unique_flights, 10)
 
     if 'page' in request.POST:
         page = request.POST.get("page", "")
