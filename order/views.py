@@ -4,13 +4,9 @@ import datetime
 
 from django.core.mail import send_mail
 from django.http import Http404
-
 from django.shortcuts import render_to_response, redirect
 from django.template.context import RequestContext
-from django.utils.dateparse import parse_datetime
-from aircraft.models import Aircraft
 
-from flight.models import Flight
 from order.forms import OrderForm
 from order.models import Order
 from unique_flight.models import UniqueFlight
@@ -43,7 +39,6 @@ def place_order(request):
         search_form = OrderForm(request.POST)
         if search_form.is_valid():
             unique_flight_id = request.POST['unique_flight_id']
-            # TODO: сделать конвертатцию формы в модельку
             first_name = search_form.cleaned_data['first_name']
             last_name = search_form.cleaned_data['last_name']
             document_id = search_form.cleaned_data['document_id']
@@ -80,7 +75,7 @@ def show_order(request, order_id, order_hash):
     except Order.DoesNotExist:
         raise Http404
     diff = int((order.unique_flight.departure_datetime - datetime.datetime.now()).total_seconds() / 60)
-    if 30 < diff < 360:
+    if 30 < diff < 36000:
         aircraft = order.unique_flight.flight.aircraft
         free_seats = Order.get_free_seats(order.unique_flight.id, aircraft, order.class_of_service)
         return render_to_response('show_order.html', {'order': order,
@@ -91,6 +86,7 @@ def show_order(request, order_id, order_hash):
         return render_to_response('status.html', {'status': 'It is not time for registration yet'},
                                   context_instance=RequestContext(request))
 
+
 def register(request):
     if request.method != 'POST':
         return redirect('/search/')
@@ -100,21 +96,19 @@ def register(request):
     diff = int((order.unique_flight.departure_datetime - datetime.datetime.now()).total_seconds() / 60)
 
     if order.is_registered:
-        return render_to_response('status.html', {'status': 'You have already registered'},
-                                  context_instance=RequestContext(request))
-    elif 30 < diff < 360:
-        order.taken_seat = request.POST['seats']
-        order.is_registered = True
-        order.registration_time = datetime.datetime.now()
-        order.save()
-        return render_to_response('status.html', {'status': 'You are successfully registered'},
-                                  context_instance=RequestContext(request))
+        status = 'You have already registered'
+    elif 30 < diff < 36000:
+        if order.try_take_seat(request.POST['seats']):
+            status = 'You are successfully registered'
+        else:
+            status = 'Sorry, seat is already taken, try again'
     elif diff < 30:
-        return render_to_response('status.html', {'status': 'Sorry, but registration on this flight completed'},
-                                  context_instance=RequestContext(request))
+        status = 'Sorry, but registration on this flight completed'
     else:
-        return render_to_response('status.html', {'status': 'It is not time for registration yet'},
-                                  context_instance=RequestContext(request))
+        status = 'It is not time for registration yet'
+
+    return render_to_response('status.html', {'status': status},
+                              context_instance=RequestContext(request))
 
 
 def ticket(request):
