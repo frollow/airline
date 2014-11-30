@@ -86,3 +86,18 @@ class OrderTest(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertRegexpMatches(response.content, 'Sorry, but registration on this flight completed')
         order.delete()
+
+    def test_register_not_existing_seat(self):
+        self.unique_flight.departure_datetime = datetime.datetime.now() + datetime.timedelta(minutes=60)
+        self.unique_flight.save()
+        order_id = 1103
+        order_hash = 'fake hash'
+        seat = 'A1'
+        order = Order.objects.create(unique_flight=self.unique_flight, id=order_id, order_hash=order_hash,
+                                     is_registered=False)
+        request_factory = RequestFactory()
+        request = request_factory.post('/fake-path', data={'order_id': order_id, 'seats': seat})
+        response = register(request)
+        self.assertEqual(response.status_code, 200)
+        self.assertRegexpMatches(response.content, 'Sorry, seat is already taken, try again')
+        order.delete()
