@@ -8,6 +8,7 @@ addons:
 install:
   - pip install -r requirements.txt
 before_script:
+  - psql -c 'create user avia with CREATEDB' -U postgres
   - psql -c 'create database avia;' -U postgres
   - python manage.py makemigrations --noinput
   - python manage.py migrate --noinput
