@@ -1,13 +1,14 @@
 import unittest
 import datetime
 from django.http import Http404
+from django.test import RequestFactory
 from aircraft.models import Aircraft
 from airport.models import Airport
 from city.models import City
 from country.models import Country
 from flight.models import Flight
 from order.models import Order
-from order.views import show_order
+from order.views import show_order, register
 from unique_flight.models import UniqueFlight
 
 
@@ -70,4 +71,18 @@ class OrderTest(unittest.TestCase):
         response = show_order(request, order_id, order_hash)
         self.assertEqual(response.status_code, 200)
         self.assertRegexpMatches(response.content, 'It is not time for registration yet')
+        order.delete()
+
+    def test_register_completed_registration(self):
+        self.unique_flight.departure_datetime = datetime.datetime.now()
+        self.unique_flight.save()
+        order_id = 1103
+        order_hash = 'fake hash'
+        order = Order.objects.create(unique_flight=self.unique_flight, id=order_id, order_hash=order_hash,
+                                     is_registered=False)
+        request_factory = RequestFactory()
+        request = request_factory.post('/fake-path', data={'order_id': order_id})
+        response = register(request)
+        self.assertEqual(response.status_code, 200)
+        self.assertRegexpMatches(response.content, 'Sorry, but registration on this flight completed')
         order.delete()
