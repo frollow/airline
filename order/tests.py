@@ -44,10 +44,12 @@ class OrderTest(unittest.TestCase):
         order = Order.objects.create(unique_flight=self.unique_flight, class_of_service=class_of_service)
         free_seats = Order.get_free_seats(self.unique_flight.id, self.unique_flight.flight.aircraft, class_of_service)
         self.assertEqual(len(free_seats), 10)
-        order.try_take_seat(free_seats[0])
+        taken_seat = free_seats[0]
+        order.try_take_seat(taken_seat)
         free_seats = Order.get_free_seats(self.unique_flight.id, self.unique_flight.flight.aircraft,
                                           class_of_service)
         self.assertEqual(len(free_seats), 9)
+        self.assertNotIn(taken_seat, free_seats)
         order.delete()
 
     def test_free_seats(self):
