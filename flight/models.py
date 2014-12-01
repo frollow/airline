@@ -1,4 +1,4 @@
-          # -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 from django.db import models
 
 from aircraft.models import Aircraft
@@ -27,7 +27,7 @@ class Flight(models.Model):
     aircraft = models.ForeignKey(Aircraft, verbose_name='Aircraft', default='', related_name='aircraft')
     price_F = models.FloatField(verbose_name='Price first class', default='22500')
     price_B = models.FloatField(verbose_name='Price business class', default='18200')
-    price_E = models.FloatField(verbose_name='Price economic class', default='11400')
+    price_E = models.FloatField(verbose_name='Price economy class', default='11400')
 
     def __unicode__(self):
         return '{} : {} {} {} -> {} {} {} : repeat = {}: {}'.format(self.flight_number,

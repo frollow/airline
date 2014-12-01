@@ -18,10 +18,21 @@ class Order(models.Model):
     class_of_service = models.CharField(max_length=1, verbose_name='Class of service', default='E')
     taken_seat = models.CharField(max_length=4, default='')
 
+    def try_take_seat(self, seat):
+        free_seats = Order.get_free_seats(self.unique_flight.id, self.unique_flight.flight.aircraft,
+                                          self.class_of_service)
+        if seat not in free_seats:
+            return False
+        self.taken_seat = seat
+        self.is_registered = True
+        self.registration_time = datetime.datetime.now()
+        self.save()
+        return True
+
     @staticmethod
     def get_taken_seats(unique_flight_id):
         orders = Order.objects.all().filter(unique_flight_id=unique_flight_id)
-        return [order.taken_seat for order in orders]
+        return [order.taken_seat for order in orders if order.taken_seat != '']
 
     @staticmethod
     def get_free_seats(unique_flight_id, aircraft, class_of_service):

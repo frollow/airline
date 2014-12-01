@@ -30,7 +30,6 @@ def get_image(request):
     image_ext = image_name.split('.')[-1]
     images = Aircraft.objects.filter(seat_map_picture=image_name)
 
-
     if images.count() == 0:
         raise Http404
 

@@ -12,6 +12,7 @@ class UniqueFlight(models.Model):
     taken_seats_list = models.CharField(verbose_name='List of taken seats', default='', max_length=2000)
     arrival_date = models.DateField(verbose_name='Arrival date', default='1990-01-01')
     arrival_time = models.TimeField(verbose_name='Arrival time', default='00:00')
+    flight_time = ''
 
     def get_price(self, class_of_service):
         if class_of_service == Flight.ECONOMY_CLASS:
@@ -36,6 +37,22 @@ class UniqueFlight(models.Model):
             return True
         else:
             return False
+
+    def get_flight_time(self):
+        day_diff = self.flight.arrival_date_begin - self.flight.departure_date_begin
+        flight_time = ''
+        if day_diff.days > 1:
+            flight_time = (1440 - (self.flight.departure_time.hour * 60 + self.flight.departure_time.minute)) \
+                          + self.flight.arrival_time.hour * 60 + self.flight.arrival_time.minute + day_diff.days * 1440
+        elif day_diff.days == 1:
+            flight_time = (1440 - (self.flight.departure_time.hour * 60 + self.flight.departure_time.minute)) \
+                          + self.flight.arrival_time.hour * 60 + self.flight.arrival_time.minute
+        elif day_diff.days == 0:
+            flight_time = (self.flight.arrival_time.hour * 60 + self.flight.arrival_time.minute) - \
+                          (self.flight.departure_time.hour * 60 + self.flight.departure_time.minute)
+        flight_time_hours = flight_time // 60
+        flight_time_minutes = flight_time - flight_time_hours * 60
+        return str(flight_time_hours) + '.' + str(flight_time_minutes) + 'h'
 
     def __unicode__(self):
         return "{} {} - {} : {} {} {}".format(self.departure_datetime, self.flight.departure_airport,

@@ -23,18 +23,19 @@
                 <th>Arrival city</th>
                 <th>Departure time</th>
                 <th>Arrival time</th>
-                <th></th>
+                <th>Flight duration</th>
             </tr>
             </thead>
             {% for flight in object_list %}
                 <tbody>
                     <tr class="hover">
-                        <td>{{ flight.flight_number }}</td>
+                        <td>{{ flight.flight.flight_number }}</td>
                         <td>{{ flight.departure_datetime|date:"Y-m-d" }}</td>
-                        <td>{{ flight.departure_airport }}</td>
-                        <td>{{ flight.arrival_airport }}</td>
-                        <td>{{ flight.departure_time|time:"H:i" }}</td>
-                        <td>{{ flight.arrival_time|time:"H:i" }}</td>
+                        <td>{{ flight.flight.departure_airport }}</td>
+                        <td>{{ flight.flight.arrival_airport }}</td>
+                        <td>{{ flight.flight.departure_time|time:"H:i" }}</td>
+                        <td>{{ flight.flight.arrival_time|time:"H:i" }}</td>
+                        <td>{{ flight.get_flight_time }}</td>
                     </tr>
                 </tbody>
             {% endfor %}
