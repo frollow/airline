@@ -8,7 +8,7 @@ class UniqueFlight(models.Model):
     departure_datetime = models.DateTimeField(verbose_name='Departure date and time', default='1990-01-01 00:00')
     left_seats_F = models.IntegerField(verbose_name='Left seats of first class', default=0)
     left_seats_B = models.IntegerField(verbose_name='Left seats of business class', default=0)
-    left_seats_E = models.IntegerField(verbose_name='Left seats of economic class', default=0)
+    left_seats_E = models.IntegerField(verbose_name='Left seats of economy class', default=0)
     taken_seats_list = models.CharField(verbose_name='List of taken seats', default='', max_length=2000)
     arrival_date = models.DateField(verbose_name='Arrival date', default='1990-01-01')
     arrival_time = models.TimeField(verbose_name='Arrival time', default='00:00')
@@ -39,5 +39,13 @@ class UniqueFlight(models.Model):
 
     def __unicode__(self):
         return "{} {} - {} : {} {} {}".format(self.departure_datetime, self.flight.departure_airport,
-                            self.flight.arrival_airport, self.left_seats_E, self.left_seats_B,
-                            self.left_seats_F)
+                                              self.flight.arrival_airport, self.left_seats_E, self.left_seats_B,
+                                              self.left_seats_F)
+
+    def get_left_seats(self, class_of_service):
+        if class_of_service == Flight.ECONOMY_CLASS:
+            return self.left_seats_E
+        elif class_of_service == Flight.BUSINESS_CLASS:
+            return self.left_seats_B
+        elif class_of_service == Flight.FIRST_CLASS:
+            return self.left_seats_F
