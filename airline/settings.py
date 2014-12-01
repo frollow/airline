@@ -25,8 +25,8 @@ SECRET_KEY = '1*8-*#h_ym2(e=&_6&j7q+f753fp3ud$a346%1y)rh_k8beu^i'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 1025
 
 TEMPLATE_DEBUG = True
 
@@ -106,3 +106,9 @@ MEDIA_URL = '/media/'
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates').replace('\\', '/'),
 )
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'respectourairlines@gmail.com'
+EMAIL_HOST_PASSWORD = 'c75074149131c2d'
+EMAIL_PORT = 587
