@@ -1,17 +1,18 @@
 from django.db import models
+from datetime import date, time, datetime
 
 from flight.models import Flight
 
 
 class UniqueFlight(models.Model):
     flight = models.ForeignKey(Flight, verbose_name='Flight', on_delete=models.CASCADE)
-    departure_datetime = models.DateTimeField(verbose_name='Departure date and time', default='1990-01-01 00:00')
+    departure_datetime = models.DateTimeField(verbose_name='Departure date and time', default=datetime(1990, 1, 1, 0, 0))
     left_seats_F = models.IntegerField(verbose_name='Left seats of first class', default=0)
     left_seats_B = models.IntegerField(verbose_name='Left seats of business class', default=0)
     left_seats_E = models.IntegerField(verbose_name='Left seats of economy class', default=0)
     taken_seats_list = models.CharField(verbose_name='List of taken seats', default='', max_length=2000)
-    arrival_date = models.DateField(verbose_name='Arrival date', default='1990-01-01')
-    arrival_time = models.TimeField(verbose_name='Arrival time', default='00:00')
+    arrival_date = models.DateField(verbose_name='Arrival date', default=date(1990, 1, 1))
+    arrival_time = models.TimeField(verbose_name='Arrival time', default=time(0, 0))
     flight_time = ''
 
     def get_price(self, class_of_service):

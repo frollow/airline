@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import date, time
 from django.db import models
 
 from aircraft.models import Aircraft
@@ -19,11 +20,11 @@ class Flight(models.Model):
                                           related_name='departure_airport', on_delete=models.CASCADE)
     arrival_airport = models.ForeignKey(Airport, verbose_name='Arrival airport', default='',
                                         related_name='arrival_airport', on_delete=models.CASCADE)
-    departure_date_begin = models.DateField(verbose_name='Departure date begin', default='1990-01-01')
-    arrival_date_begin = models.DateField(verbose_name='Arrival date begin', default='1990-01-01')
+    departure_date_begin = models.DateField(verbose_name='Departure date begin', default=date(1990, 1, 1))
+    arrival_date_begin = models.DateField(verbose_name='Arrival date begin', default=date(1990, 1, 1))
     repeat_interval = models.IntegerField(verbose_name='Repeat interval', default=1)
-    departure_time = models.TimeField(verbose_name='Departure time', default="08:00")
-    arrival_time = models.TimeField(verbose_name='Arrival time', default="10:00")
+    departure_time = models.TimeField(verbose_name='Departure time', default=time(8, 0))
+    arrival_time = models.TimeField(verbose_name='Arrival time', default=time(10, 0))
     aircraft = models.ForeignKey(Aircraft, verbose_name='Aircraft', default='', related_name='aircraft', on_delete=models.CASCADE)
     price_F = models.FloatField(verbose_name='Price first class', default='22500')
     price_B = models.FloatField(verbose_name='Price business class', default='18200')

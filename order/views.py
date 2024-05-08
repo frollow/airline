@@ -1,6 +1,7 @@
 # coding: utf-8
 import uuid
 import datetime
+from django.utils import timezone
 
 from django.core.mail import send_mail
 from django.http import Http404
@@ -76,8 +77,8 @@ def show_order(request, order_id, order_hash):
         order = Order.objects.get(pk=order_id, order_hash=order_hash)
     except Order.DoesNotExist:
         raise Http404
-    diff = int((order.unique_flight.departure_datetime - datetime.datetime.now()).total_seconds() / 60)
-    if 30 < diff < 360:
+    diff = int((order.unique_flight.departure_datetime - timezone.now()).total_seconds() / 3600 )
+    if 2 < diff < 24:
         aircraft = order.unique_flight.flight.aircraft
         free_seats = Order.get_free_seats(order.unique_flight.id, aircraft, order.class_of_service)
         return render(request, 'show_order.html', {'order': order,
@@ -94,16 +95,16 @@ def register(request):
 
     order_id = request.POST['order_id']
     order = Order.objects.get(pk=order_id)
-    diff = int((order.unique_flight.departure_datetime - datetime.datetime.now()).total_seconds() / 60)
+    diff = int((order.unique_flight.departure_datetime - timezone.now()).total_seconds() / 3600)
 
     if order.is_registered:
         status = 'You have already registered'
-    elif 30 < diff < 360:
+    elif 2 < diff < 24:
         if order.try_take_seat(request.POST['seats']):
             status = 'You are successfully registered'
         else:
             status = 'Sorry, seat is already taken, try again'
-    elif diff < 30:
+    elif diff < 2:
         status = 'Sorry, but registration on this flight completed'
     else:
         status = 'It is not time for registration yet'
